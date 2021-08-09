@@ -28,8 +28,8 @@ class ProjectService {
   }
 
   async destroy(id, user) {
-    const post = await this.getById(id)
-    if (user.id === post.creatorId.toString()) {
+    const project = await this.getById(id)
+    if (user.id === project.creatorId.toString()) {
       await this.getById(id)
       return await dbContext.Project.findByIdAndDelete(id)
     }

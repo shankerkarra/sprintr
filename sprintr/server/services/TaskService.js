@@ -45,6 +45,18 @@ class TaskService {
     }
     return task
   }
+
+  async createTask(body) {
+    return await dbContext.Task.create(body)
+  }
+
+  async destroy(id, user) {
+    const task = await this.getById(id)
+    if (user.id === task.creatorId.toString()) {
+      await this.getById(id)
+      return await dbContext.Task.findByIdAndDelete(id)
+    }
+  }
 }
 
 export const taskService = new TaskService()

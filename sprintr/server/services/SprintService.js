@@ -30,6 +30,18 @@ class SprintService {
     }
     return sprint
   }
+
+  async createSprint(body) {
+    return await dbContext.Sprint.create(body)
+  }
+
+  async destroy(id, user) {
+    const sprint = await this.getById(id)
+    if (user.id === sprint.creatorId.toString()) {
+      await this.getById(id)
+      return await dbContext.Sprint.findByIdAndDelete(id)
+    }
+  }
 }
 
 export const sprintService = new SprintService()

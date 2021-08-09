@@ -29,6 +29,18 @@ class NoteService {
     }
     return note
   }
+
+  async createNote(body) {
+    return await dbContext.Note.create(body)
+  }
+
+  async destroy(id, user) {
+    const note = await this.getById(id)
+    if (user.id === note.creatorId.toString()) {
+      await this.getById(id)
+      return await dbContext.Note.findByIdAndDelete(id)
+    }
+  }
 }
 
 export const noteService = new NoteService()

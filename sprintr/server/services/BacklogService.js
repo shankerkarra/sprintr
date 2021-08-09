@@ -29,6 +29,18 @@ class BacklogService {
     }
     return backlog
   }
+
+  async createBacklog(body) {
+    return await dbContext.Backlog.create(body)
+  }
+
+  async destroy(id, user) {
+    const backlog = await this.getById(id)
+    if (user.id === backlog.creatorId.toString()) {
+      await this.getById(id)
+      return await dbContext.Backlog.findByIdAndDelete(id)
+    }
+  }
 }
 
 export const backlogService = new BacklogService()

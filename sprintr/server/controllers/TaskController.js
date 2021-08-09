@@ -1,3 +1,4 @@
+import { noteService } from "../services/NoteService";
 import { taskService } from "../services/TaskService";
 import BaseController from "../utils/BaseController";
 
@@ -31,17 +32,19 @@ export class TaskController extends BaseController{
 
   async getAllNotesByTask(req, res, next) {
     try {
-      
+      const note = await noteService.getAll({ taskId: req.params.id })
+      res.send(note)
     } catch (error) {
-      next('', error)
+      next('We had trouble getting The Notes for that Task : ', error)
     }
   }
 
   async create(req, res, next) {
     try {
-      
+      const task = await taskService.createTask(req.body)
+      res.send(task)
     } catch (error) {
-      next('', error)
+      next('We had trouble creating that Task : ', error)
     }
   }
 }

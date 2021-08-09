@@ -37,8 +37,6 @@ export class SprintController extends BaseController{
   }
   async create(req, res, next) {
     try {
-      const user = req.userInfo
-      req.body.creatorId = user.id
       const sprint = await sprintService.createSprint(req.body)
       res.send(sprint)
     } catch (error) {

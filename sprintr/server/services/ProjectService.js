@@ -1,6 +1,6 @@
 import { BadRequest } from '../utils/Errors'
 import { dbContext } from '../db/DbContext'
-
+import { ProjectController } from '../controllers/ProjectController'
 class ProjectService {
   async getAll(query = {}) {
     return await dbContext.Project.find(query)

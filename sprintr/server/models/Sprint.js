@@ -2,17 +2,16 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-
 export const Sprint = new Schema(
   {
-    id: {type: ObjectId, required: true},
-    name : {type: String, unique: true},
+    // id: {type: ObjectId, required: true},
+    name: { type: String, unique: true },
     startDate: { type: Date, required: true },
-    endData: {type: Date, required: true},
+    endData: { type: Date, required: true },
     isOpen: { type: Boolean, required: true },
-    projectId: {type: ObjectId, ref: 'Project', required: true},
+    projectId: { type: ObjectId, ref: 'Project', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true },
-    color: {type: String, required: true}
+    color: { type: String, required: true }
   }
 )
 Sprint.virtual('account', {

@@ -10,7 +10,7 @@ export const BackLogItem = new Schema(
     isOpen: { type: Boolean, required: true },
     projectId: { type: ObjectId, ref: 'Project', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true },
-    color: { type: String, required: true }
+    color: { type: String }
   }
 )
 BackLogItem.virtual('account', {

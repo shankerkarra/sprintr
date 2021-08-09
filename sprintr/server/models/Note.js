@@ -2,13 +2,12 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-
 export const Note = new Schema(
   {
-    id: {type: ObjectId, required: true},
+    // id: {type: ObjectId, required: true},
     body: { type: String, unique: true },
-    taskId: {type: ObjectId, ref: 'Task', required: true},
-    creatorId: {type: ObjectId, ref: 'Account', required: true}
+    taskId: { type: ObjectId, ref: 'Task', required: true },
+    creatorId: { type: ObjectId, ref: 'Account', required: true }
   }
 )
 Note.virtual('account', {

@@ -7,7 +7,7 @@ export const Sprint = new Schema(
     // id: {type: ObjectId, required: true},
     name: { type: String, required: true },
     startDate: { type: Date, required: true },
-    endData: { type: Date, required: true },
+    endDate: { type: Date, required: true },
     isOpen: { type: Boolean, required: true },
     projectId: { type: ObjectId, ref: 'Project', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true },

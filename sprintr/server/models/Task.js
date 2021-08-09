@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 export const Task = new Schema(
   {
     // id: {type: ObjectId, required: true},
-    status: { type: String, unique: true },
+    status: { type: String, required: true },
     weight: { type: Number, required: true },
     projectId: { type: ObjectId, ref: 'Project', required: true },
     sprintId: { type: ObjectId, ref: 'Sprint', required: true },

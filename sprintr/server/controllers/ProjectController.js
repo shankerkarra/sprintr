@@ -12,6 +12,7 @@ export class ProjectController extends BaseController {
       .get('/:id', this.getById)
       .get('/:id/backlog', this.getAllBackLogItemsByProject)
       .get('/:id/task', this.getAllTasksByProject)
+      .post('', this.create)
   }
   
   async getAllProjects(req, res, next) {
@@ -63,7 +64,7 @@ export class ProjectController extends BaseController {
     try {
       const user = req.userInfo
       req.body.creatorId = user.id
-      const project = await projectService.create(req.body)
+      const project = await projectService.createProject(req.body)
       res.send(project)
     } catch (error) {
       next('We had trouble making that Project : ', error)

@@ -1,8 +1,8 @@
-import { backlogService } from "../services/BacklogService"
-import { taskService } from "../services/TaskService"
-import BaseController from "../utils/BaseController"
+import { backlogService } from '../services/BacklogService'
+import { taskService } from '../services/TaskService'
+import BaseController from '../utils/BaseController'
 
-export class BackLogItemController extends BaseController{
+export class BackLogItemController extends BaseController {
   constructor() {
     super('api/backlog')
     this.router
@@ -11,6 +11,7 @@ export class BackLogItemController extends BaseController{
       .get('/:id/tasks', this.getAllTasksByBacklog)
       .post('', this.create)
   }
+
   async getAll(req, res, next) {
     try {
       const backlogs = await backlogService.getAll(req.query)
@@ -19,6 +20,7 @@ export class BackLogItemController extends BaseController{
       next('We had a problem getting the Backlog Items : ', error)
     }
   }
+
   async getById(req, res, next) {
     try {
       const backlog = await backlogService.getById(req.params.id)
@@ -27,6 +29,7 @@ export class BackLogItemController extends BaseController{
       next('We had a problem getting that Backlog Item : ', error)
     }
   }
+
   async getAllTasksByBacklog(req, res, next) {
     try {
       const task = await taskService.getAll({ backlogId: req.params.id })
@@ -35,6 +38,7 @@ export class BackLogItemController extends BaseController{
       next('We had a problem getting those Tasks for this Backlog Item : ', error)
     }
   }
+
   async create(req, res, next) {
     try {
       const backlog = await backlogService.createBacklog(req.body)

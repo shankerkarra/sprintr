@@ -35,6 +35,14 @@ class SprintService {
     return await dbContext.Sprint.create(body)
   }
 
+  async updateSprint(body) {
+    const sprint = await dbContext.Sprint.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    if (!sprint) {
+      throw new BadRequest('Invalid Sprint ID')
+    }
+    return sprint
+  }
+
   async destroy(id, user) {
     const sprint = await this.getById(id)
     if (user.id === sprint.creatorId.toString()) {

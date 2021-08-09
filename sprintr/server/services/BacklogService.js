@@ -34,6 +34,14 @@ class BacklogService {
     return await dbContext.Backlog.create(body)
   }
 
+  async updateBacklog(body) {
+    const backlog = await dbContext.Backlog.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    if (!backlog) {
+      throw new BadRequest('Invalid Backlog ID')
+    }
+    return backlog
+  }
+
   async destroy(id, user) {
     const backlog = await this.getById(id)
     if (user.id === backlog.creatorId.toString()) {

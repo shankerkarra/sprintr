@@ -24,7 +24,7 @@ class ProjectService {
     if (!project) {
       throw new BadRequest('Invalid Project ID')
     }
-    return ProjectController
+    return project
   }
 
   async destroy(id, user) {

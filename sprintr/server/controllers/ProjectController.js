@@ -62,8 +62,6 @@ export class ProjectController extends BaseController {
 
   async create(req, res, next) {
     try {
-      const user = req.userInfo
-      req.body.creatorId = user.id
       const project = await projectService.createProject(req.body)
       res.send(project)
     } catch (error) {

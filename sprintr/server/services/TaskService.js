@@ -39,7 +39,7 @@ class TaskService {
   }
 
   async getByCreatorId(taskid) {
-    const task = await dbContext.Task.findByCreatorId(creatorid)
+    const task = await dbContext.Task.findByCreatorId(taskid)
     if (!task) {
       throw new BadRequest('Invalid Creator ID')
     }

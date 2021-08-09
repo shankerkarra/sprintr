@@ -50,6 +50,14 @@ class TaskService {
     return await dbContext.Task.create(body)
   }
 
+  async updateTask(body) {
+    const task = await dbContext.Task.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    if (!task) {
+      throw new BadRequest('Invalid Backlog ID')
+    }
+    return task
+  }
+
   async destroy(id, user) {
     const task = await this.getById(id)
     if (user.id === task.creatorId.toString()) {

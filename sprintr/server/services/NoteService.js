@@ -34,6 +34,14 @@ class NoteService {
     return await dbContext.Note.create(body)
   }
 
+  async updateNote(body) {
+    const note = await dbContext.Note.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    if (!note) {
+      throw new BadRequest('Invalid Note ID')
+    }
+    return note
+  }
+
   async destroy(id, user) {
     const note = await this.getById(id)
     if (user.id === note.creatorId.toString()) {

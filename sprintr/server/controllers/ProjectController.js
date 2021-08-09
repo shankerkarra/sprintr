@@ -13,6 +13,8 @@ export class ProjectController extends BaseController {
       .get('/:id/backlog', this.getAllBackLogItemsByProject)
       .get('/:id/task', this.getAllTasksByProject)
       .post('', this.create)
+      .put('/:id', this.edit)
+      .delete(':/id', this.destroy)
   }
   
   async getAllProjects(req, res, next) {
@@ -66,6 +68,25 @@ export class ProjectController extends BaseController {
       res.send(project)
     } catch (error) {
       next('We had trouble making that Project : ', error)
+    }
+  }
+
+  async edit(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const project = await projectService.updateProject(req.body)
+      res.send(project)
+    } catch (error) {
+      next('We had trouble editing that Project', error)
+    }
+  }
+
+  async destroy(req, res, next) {
+    try {
+      await projectService.destroy(req.params.id)
+      res.send({message: 'That project has been deleted!'})
+    } catch (error) {
+      next('We had trouble deleting that Project', error)
     }
   }
 }

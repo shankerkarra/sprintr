@@ -15,16 +15,16 @@ class SprintService {
     return sprint
   }
 
-  async getBacklogByProjectId(projectid) {
-    const sprint = await dbContext.Sprint.findByProjectId(Projectid)
+  async getSprintByProjectId(projectid) {
+    const sprint = await dbContext.Sprint.findSprintByProjectId(Projectid)
     if (!sprint) {
       throw new BadRequest('Invalid Backlog by Project ID')
     }
     return sprint
   }
 
-  async getBacklogByCreatorId(creatorid) {
-    const sprint = await dbContext.Sprint.findByProjectId(Creatorid)
+  async getSprintByCreatorId(creatorid) {
+    const sprint = await dbContext.Sprint.findSprintByCreatorId(Creatorid)
     if (!sprint) {
       throw new BadRequest('Invalid Backlog by Creator ID')
     }

@@ -15,7 +15,7 @@ class BacklogService {
   }
 
   async getBacklogByProjectId(projectid) {
-    const backlog = await dbContext.Backlog.findByProjectId(Projectid)
+    const backlog = await dbContext.Backlog.findBacklogByProjectId(Projectid)
     if (!backlog) {
       throw new BadRequest('Invalid Backlog by Project ID')
     }
@@ -23,7 +23,7 @@ class BacklogService {
   }
 
   async getBacklogByCreatorId(creatorid) {
-    const backlog = await dbContext.Backlog.findByProjectId(Creatorid)
+    const backlog = await dbContext.Backlog.findBacklogByCreatorId(Creatorid)
     if (!backlog) {
       throw new BadRequest('Invalid Backlog by Creator ID')
     }

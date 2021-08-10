@@ -8,6 +8,8 @@ export class NoteController extends BaseController{
       .get('', this.getAll)
       .get(':/id', this.getById)
       .post('', this.create)
+      .put('/:id', this.edit)
+      .delete('/:id', this.destroy)
   }
 
   async getAll(req, res, next) {
@@ -34,6 +36,25 @@ export class NoteController extends BaseController{
       res.send(note)
     } catch (error) {
       next('We had trouble making that Note', error)
+    }
+  }
+
+  async edit(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const project = await noteService.updateNote(req.body)
+      res.send(project)
+    } catch (error) {
+      next('We had trouble editing that Project', error)
+    }
+  }
+
+  async destroy(req, res, next) {
+    try {
+      await noteService.destroy(req.params.id)
+      res.send({message: 'That project has been deleted!'})
+    } catch (error) {
+      next('We had trouble deleting that Project', error)
     }
   }
 }

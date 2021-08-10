@@ -10,6 +10,8 @@ export class SprintController extends BaseController{
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getAllTasksBySprint)
       .post('', this.create)
+      .put('/:id', this.edit)
+      .delete('/:id', this.destroy)
   }
   async getAll(req, res, next) {
     try {
@@ -41,6 +43,25 @@ export class SprintController extends BaseController{
       res.send(sprint)
     } catch (error) {
       next('We had a problem creating that Sprint', error)
+    }
+  }
+
+  async edit(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const project = await sprintService.updateSprint(req.body)
+      res.send(project)
+    } catch (error) {
+      next('We had trouble editing that Project', error)
+    }
+  }
+
+  async destroy(req, res, next) {
+    try {
+      await sprintService.destroy(req.params.id)
+      res.send({message: 'That project has been deleted!'})
+    } catch (error) {
+      next('We had trouble deleting that Project', error)
     }
   }
 }

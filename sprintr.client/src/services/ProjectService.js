@@ -36,7 +36,7 @@ class ProjectService {
 
   async destroy(id) {
     await api.delete('api/projects/' + id)
-    AppState.projects = AppState.projects.find(p => p.id !== id)
+    AppState.projects = AppState.projects.filter(p => p.id !== id)
     logger.log('Deleted Successfully')
   }
 

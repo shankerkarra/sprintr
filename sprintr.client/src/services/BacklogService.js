@@ -29,7 +29,7 @@ class BacklogService {
 
   async destroy(id) {
     await api.delete('api/backlog/' + id)
-    AppState.backlogitems = AppState.backlogitems.find(b => b.id !== id)
+    AppState.backlogitems = AppState.backlogitems.filter(b => b.id !== id)
     logger.log('Deleted Successfully')
   }
 

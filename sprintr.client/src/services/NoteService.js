@@ -29,7 +29,7 @@ class NoteService {
 
   async destroy(id) {
     await api.deleteNote('api/notes' + id)
-    AppState.notes = AppState.notes.find(n => n.id !== id)
+    AppState.notes = AppState.notes.filter(n => n.id !== id)
 
     logger.log('Deleted Successfully')
   }

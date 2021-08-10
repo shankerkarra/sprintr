@@ -35,7 +35,7 @@ class SprintService {
 
   async destroy(id) {
     await api.delete('api/sprint/' + id)
-    AppState.sprints = AppState.sprints.find(s => s.id !== id)
+    AppState.sprints = AppState.sprints.filter(s => s.id !== id)
     logger.log('Deleted Sucessfully')
   }
 }

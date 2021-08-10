@@ -3,6 +3,7 @@ import { projectService } from '../services/ProjectService'
 import { sprintService } from '../services/SprintService'
 import { taskService } from '../services/TaskService'
 import BaseController from '../utils/BaseController'
+import { Auth0Provider } from '@bcwdev/auth0provider'
 
 export class ProjectController extends BaseController {
   constructor() {
@@ -14,7 +15,8 @@ export class ProjectController extends BaseController {
       .get('/:id/task', this.getAllTasksByProject)
       .post('', this.create)
       .put('/:id', this.edit)
-      .delete(':/id', this.destroy)
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .delete('/:id', this.destroy)
   }
 
   async getAllProjects(req, res, next) {
@@ -31,7 +33,7 @@ export class ProjectController extends BaseController {
       const project = await projectService.getById(req.params.id)
       res.send(project)
     } catch (error) {
-      next('We had trouble getting that projects Id : ',error)
+      next('We had trouble getting that projects Id : ', error)
     }
   }
 
@@ -40,7 +42,7 @@ export class ProjectController extends BaseController {
       const backLog = await backlogService.getAll({ projectId: req.params.id })
       res.send(backLog)
     } catch (error) {
-      next('We had trouble getting the tasks of that project : ',error)
+      next('We had trouble getting the tasks of that project : ', error)
     }
   }
 
@@ -83,8 +85,9 @@ export class ProjectController extends BaseController {
 
   async destroy(req, res, next) {
     try {
-      await projectService.destroy(req.params.id)
-      res.send({message: 'That project has been deleted!'})
+      const user = req.userInfo
+      await projectService.destroy(req.params.id, user)
+      res.send({ message: 'That project has been deleted!' })
     } catch (error) {
       next('We had trouble deleting that Project', error)
     }

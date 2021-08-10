@@ -34,7 +34,7 @@ class BacklogService {
   }
 
   async update(id, body) {
-    const res = api.put('api/backlog/', +id, body)
+    const res = await api.put('api/backlog/', +id, body)
     logger.log('Edited A Backlog : ', res.data)
     AppState.backlogitems = res.data
   }

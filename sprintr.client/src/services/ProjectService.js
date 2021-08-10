@@ -41,7 +41,7 @@ class ProjectService {
   }
 
   async update(id, body) {
-    const res = api.put('api/projects/' + id, body)
+    const res = await api.put('api/projects/' + id, body)
     logger.log('Edited A project : ', res.data)
     AppState.project = res.data
   }

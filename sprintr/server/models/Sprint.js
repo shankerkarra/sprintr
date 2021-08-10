@@ -4,7 +4,6 @@ const ObjectId = Schema.Types.ObjectId
 
 export const Sprint = new Schema(
   {
-    // id: {type: ObjectId, required: true},
     name: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },

@@ -16,7 +16,7 @@ export class ProjectController extends BaseController {
       .put('/:id', this.edit)
       .delete(':/id', this.destroy)
   }
-  
+
   async getAllProjects(req, res, next) {
     try {
       const projects = await projectService.getAll(req.query)

@@ -4,7 +4,6 @@ const ObjectId = Schema.Types.ObjectId
 
 export const BackLogItem = new Schema(
   {
-    // id: {type: ObjectId, required: true},
     name: { type: String, required: true },
     body: { type: String, required: true },
     isOpen: { type: Boolean, required: true },

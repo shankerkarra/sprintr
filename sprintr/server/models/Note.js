@@ -4,7 +4,6 @@ const ObjectId = Schema.Types.ObjectId
 
 export const Note = new Schema(
   {
-    // id: {type: ObjectId, required: true},
     body: { type: String, required: true },
     taskId: { type: ObjectId, ref: 'Task', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true }

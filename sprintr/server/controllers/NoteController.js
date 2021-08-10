@@ -1,7 +1,7 @@
-import { noteService } from "../services/NoteService";
-import BaseController from "../utils/BaseController";
+import { noteService } from '../services/NoteService';
+import BaseController from '../utils/BaseController';
 
-export class NoteController extends BaseController{
+export class NoteController extends BaseController {
   constructor() {
     super('api/notes')
     this.router

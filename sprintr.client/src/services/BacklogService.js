@@ -18,7 +18,7 @@ class BacklogService {
   async getTasksbyBacklog(id) {
     const res = await api.get('api/backlog/' + id + '/tasks')
     logger.log('All Tasks for this Backlog : ', res.data)
-    AppState.task = res.data
+    AppState.tasks = res.data
   }
 
   async create(body) {

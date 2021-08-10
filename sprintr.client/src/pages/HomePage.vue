@@ -1,15 +1,34 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <!-- <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1> -->
+  <div class="row justify-content-center mt-3" v-if="user.isAuthenticated">
+    <ProjectCard :project="project" :user="user" />
+  </div>
+  <div v-else>
+    <img src="../assets/img/JogMan.png" alt="Man Running">
   </div>
 </template>
 
 <script>
+import { AuthService } from '../services/AuthService'
+import { AppState } from '../AppState'
+import { computed, reactive } from 'vue'
 export default {
-  name: 'Home'
+  name: 'Home',
+  setup() {
+    const state = reactive({
+      dropOpen: false
+    })
+    return {
+      state,
+      user: computed(() => AppState.user),
+      project: computed(() => AppState.project),
+      async login() {
+        AuthService.loginWithPopup()
+      },
+      async logout() {
+        AuthService.logout({ returnTo: window.location.origin })
+      }
+    }
+  }
 }
 </script>
 

@@ -1,28 +1,42 @@
-import { ProxyState } from '../AppState.js'
+import { AppState, ProxyState } from '../AppState.js'
 import Task from '../Models/Task.js'
 import { logger } from '../Utils/Logger.js'
 import { api } from '../Services/AxiosService.js'
 
 class TaskService {
   async getAllTask() {
-    const tasks = await api.get('api/Task')
-    ProxyState.tasks = tasks.data.map(b => new Task(b))
-    return tasks
+    const res = await api.get('api/tasks')
+    logger.log('Get all Task', res.data)
+    AppState.task = res.data
   }
 
   async getTaskById(id) {
-    const task = await api.get('api/Task/' + id)
-    return task
+    const res = await api.get('api/tasks/' + id)
+    logger.log('fetched single task by id', res.data)
+    AppState.task = res.data
   }
 
-  async addTask(rawtask) {
-    const task = await api.post('api/Task', rawtask)
-    ProxyState.tasks = [...ProxyState.tasks, new Task(task.data)]
-    return task
+  async getNotesByTask(id) {
+    const res = await api.get('api/tasks/' + id + '/notes')
+    logger.log('fetched Notes by Task Id', res.data)
+    AppState.note = res.data
+  }
+
+  async addTask(body) {
+    const res = await api.post('api/tasks', body)
+    logger.log('Created Task', res.data)
+    AppState.task.push(res.data)
+  }
+
+  async updateTask(id, body) {
+    const res = await api.put('api/tasks/' + id, body)
+    logger.log('Updated Task', res.data)
+    AppState.task = res.data
   }
 
   async deleteTask(id) {
-    await api.delete('api/Task' + id)
+    await api.delete('api/tasks' + id)
+    AppState.task = AppState.task.find(t => t.id !== id)
     logger.log('Deleted Successfully')
   }
 }

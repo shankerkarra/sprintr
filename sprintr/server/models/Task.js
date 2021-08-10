@@ -8,7 +8,7 @@ export const Task = new Schema(
     weight: { type: Number, required: true },
     projectId: { type: ObjectId, ref: 'Project', required: true },
     sprintId: { type: ObjectId, ref: 'Sprint', required: true },
-    backLogItemId: { type: ObjectId, ref: 'BackLogItem', required: true },
+    backlogId: { type: ObjectId, ref: 'BackLogItem', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true }
   }
 )
@@ -31,7 +31,7 @@ Task.virtual('sprint', {
   justOne: true
 })
 Task.virtual('backLogItem', {
-  localField: 'backLogItemId',
+  localField: 'backlogId',
   ref: 'BackLogItem',
   foreignField: 'id',
   justOne: true

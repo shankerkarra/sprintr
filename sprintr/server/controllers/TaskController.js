@@ -1,8 +1,8 @@
-import { noteService } from "../services/NoteService";
-import { taskService } from "../services/TaskService";
-import BaseController from "../utils/BaseController";
+import { noteService } from '../services/NoteService'
+import { taskService } from '../services/TaskService'
+import BaseController from '../utils/BaseController'
 
-export class TaskController extends BaseController{
+export class TaskController extends BaseController {
   constructor() {
     super('api/tasks')
     this.router
@@ -63,7 +63,7 @@ export class TaskController extends BaseController{
   async destroy(req, res, next) {
     try {
       await taskService.destroy(req.params.id)
-      res.send({message: 'That project has been deleted!'})
+      res.send({ message: 'That project has been deleted!' })
     } catch (error) {
       next('We had trouble deleting that Project', error)
     }

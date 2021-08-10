@@ -63,7 +63,7 @@ export class BackLogItemController extends BaseController {
   async destroy(req, res, next) {
     try {
       await backlogService.destroy(req.params.id)
-      res.send({message: 'That project has been deleted!'})
+      res.send({ message: 'That project has been deleted!' })
     } catch (error) {
       next('We had trouble deleting that Project', error)
     }

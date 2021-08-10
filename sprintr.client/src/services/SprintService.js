@@ -1,29 +1,42 @@
-import { ProxyState } from '../AppState.js'
-import Sprint from '../Models/Sprint.js'
-import { logger } from '../Utils/Logger.js'
-import { api } from '../Services/AxiosService.js'
+import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
+import { api } from './AxiosService'
 
 class SprintService {
   async getAllSprint() {
-    const sprints = await api.get('api/sprint')
-    ProxyState.sprints = sprints.data.map(b => new Sprint(b))
-    return sprints
+    const res = await api.get('api/sprint')
+    logger.log('Fetched All Sprints', res.data)
+    AppState.sprint = res.data
   }
 
   async getsprintById(id) {
-    const sprints = await api.get('api/sprints/' + id)
-    return sprints
+    const res = await api.get('api/sprint/' + id)
+    logger.log('Fetched single data', res.data)
+    AppState.sprint = res.data
   }
 
-  async addSprint(rawsprint) {
-    const sprint = await api.post('api/sprints', rawsprint)
-    ProxyState.sprints = [...ProxyState.sprints, new Sprint(sprint.data)]
-    return sprint
+  async getTaskBySprint(id) {
+    const res = await api.get('api/sprint/' + id + '/tasks')
+    logger.log('All Tasks for the SPrint', res.data)
+    AppState.task = res.data
+  }
+
+  async addSprint(body) {
+    const res = await api.post('api/sprint', body)
+    logger.log('Created Sprint', res.data)
+    AppState.sprint.push = res.data
+  }
+
+  async updateSprint(id, body) {
+    const res = await api.put('api/sprint/' + id, body)
+    logger.log('Updated Sprint', res.data)
+    AppState.sprint = res.data
   }
 
   async deleteSprint(id) {
-    await api.delete('api/sprints' + id)
-    logger.log('Deleted Successfully')
+    await api.delete('api/sprint/' + id)
+    AppState.sprint = AppState.sprint.find(s => s.id != id)
+    logger.log('Deleted Sucessfully')
   }
 }
 

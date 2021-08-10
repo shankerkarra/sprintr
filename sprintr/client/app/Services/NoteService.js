@@ -1,7 +1,7 @@
 import { ProxyState } from '../AppState.js'
 import Note from '../Models/Note.js'
 import { logger } from '../Utils/Logger.js'
-import { api } from '../AxiosService.js'
+import { api } from '../Services/AxiosService.js'
 
 class NoteService {
   async getAllNote() {

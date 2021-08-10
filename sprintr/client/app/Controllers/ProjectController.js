@@ -1,6 +1,6 @@
 import { ProxyState } from '../AppState.js'
 import { projectService} from '../Services/ProjectService.js'
-import logger from '../Utils/logger.js'
+import {logger} from '../Utils/logger.js'
 
 function _drawAllProjects() {
   let template = ''
@@ -15,7 +15,7 @@ export class ProjectController {
 
   async getAllProjects() {
     try {
-      const projects = await projectService.getAllProjects()
+      const projects = await projectService.getAllProject()
       return projects
     } catch (error) {
       logger.log('Failed getting all Projects',error)

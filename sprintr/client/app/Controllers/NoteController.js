@@ -1,6 +1,6 @@
 import { ProxyState } from '../AppState.js'
 import { noteService } from '../Services/NoteService.js'
-import logger from '../Utils/Logger.js'
+import { logger } from '../Utils/Logger.js'
 
 function _drawAllNotes() {
   let template = ''

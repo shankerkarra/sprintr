@@ -1,7 +1,7 @@
 import { ProxyState } from '../AppState.js'
 import Task from '../Models/Task.js'
 import { logger } from '../Utils/Logger.js'
-import { api } from '../AxiosService.js'
+import { api } from '../Services/AxiosService.js'
 
 class TaskService {
   async getAllTask() {

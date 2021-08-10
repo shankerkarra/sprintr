@@ -1,7 +1,7 @@
 import { ProxyState } from '../AppState.js'
 import Backlog from '../Models/Backlog.js'
 import { logger } from '../Utils/Logger.js'
-import { api } from '../AxiosService.js'
+import { api } from '../Services/AxiosService.js'
 
 class BacklogService {
   async getAllBacklog() {

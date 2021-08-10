@@ -15,8 +15,7 @@ class ProjectService {
     return project
   }
 
-  async addProject() {
-    const rawProject = ''
+  async addProject(rawProject) {
     const project = await api.ProxyState('api/projects/', rawProject)
     ProxyState.projects = [...ProxyState.projects, new Project(project.data)]
     return project

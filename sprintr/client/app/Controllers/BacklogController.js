@@ -4,7 +4,9 @@ import logger from '../Utils/Logger.js'
 
 function _drawAllBackLog() {
   let template = ''
-  ProxyState.backlogs.forEach(b = { template += b.template })
+  ProxyState.backlogs.forEach(b => {
+    template += b.template
+  })
   document.getElementById('').innerHTML = template
 }
 
@@ -48,9 +50,9 @@ export class BacklogController{
     }
   }
 
-  async removeBacklog() {
+  async removeBacklog(id) {
     try {
-      const backlog = await backlogService.removeBacklog(id)
+      const backlog = await backlogService.deleteBacklog(id)
       return backlog
     } catch (error) {
       logger.logger('Failed removing Bakclog', error)

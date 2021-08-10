@@ -1,6 +1,6 @@
 import { ProxyState } from '../AppState.js'
 import { sprintService } from '../Services/SprintService.js'
-import logger from '../Utils/Logger.js'
+import {logger} from '../Utils/Logger.js'
 
 function _drawAllSprint() {
   let template = ''
@@ -14,7 +14,7 @@ export class SprintController {
 
   async getallSprint() {
     try {
-      const sprints = await sprintService.getallSprint()
+      const sprints = await sprintService.getAllSprint()
       return sprints
     } catch (error) {
       logger.logger('Failed getting All Sprints', error)
@@ -23,7 +23,7 @@ export class SprintController {
 
   async getSprintById(id) {
     try {
-      const sprint = await sprintService.getSprintById(id)
+      const sprint = await sprintService.getsprintById(id)
       return sprint
     } catch (error) {
       logger.logger('Failed getting Sprint by Id', error)
@@ -52,7 +52,7 @@ export class SprintController {
 
   async removeSprint(id) {
     try {
-      const sprint = await sprintService.removeSprint(id)
+      const sprint = await sprintService.deleteSprint(id)
       return sprint
     } catch (error) {
       logger.logger('Failed deleting  Sprint', error)

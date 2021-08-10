@@ -1,6 +1,6 @@
 import { ProxyState } from '../AppState.js'
 import Project from '../Models/Project.js'
-import { logger } from ''../Utils/Logger.js'
+import { logger } from '../Utils/Logger.js'
 import { api } from './AxiosService.js'
 
 class ProjectService {

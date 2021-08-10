@@ -8,12 +8,6 @@ function _drawAllNotes() {
   document.getElementById('').innerHTML = template
 }
 
-function _drawCreateNote() {
-  let template = ''
-  template += ' <div. </div>'
-  document.getElementById('').innerHTML = template
-}
-
 export class NoteController {
   constructor() {
     ProxyState.on('notes', _drawAllNotes)

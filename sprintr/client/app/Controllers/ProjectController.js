@@ -8,15 +8,6 @@ function _drawAllProjects() {
  document.getElementById('').innerHTML = template
 }
 
-function _drawCreateProject() {
-  let template = ''
-  template += '
-  <div></div>
-  '
-
-  document.getElementById('').innerHTML = template
- }
-
 export class ProjectController {
   constructor() {
     ProxyState.on('projects', _drawAllProjects)
@@ -27,7 +18,7 @@ export class ProjectController {
       const projects = await projectService.getAllProjects()
       return projects
     } catch (error) {
-      logger.logger('Failed getting all Projects',error)
+      logger.log('Failed getting all Projects',error)
     }
   }
 
@@ -36,33 +27,33 @@ export class ProjectController {
       const project = await projectService.getProjectById(id)
       return project
     } catch (error) {
-      logger.logger('Failed getting Project by ID', error)
-    }
-  }
-  async addProject(id) {
-    try {
-      const project = await projectService.addProject(id)
-      return project
-    } catch (error) {
-      logger.logger('Failed adding Project', error)
+      logger.log('Failed getting Project by Id', error)
     }
   }
 
-  async addProject(id) {
+  async addProject() {
     try {
-      const project = await projectService.addProject(id)
+      event.preventDefault();
+      const form = event.target
+      const rawproject = {
+        name: form.name.value,
+        description: form.description.value
+      }
+      const project = await projectService.addProject(rawproject)
+      form.reset
       return project
     } catch (error) {
-      logger.logger('Failed adding Project', error)
+      logger.log('Failed adding Project', error)
     }
   }
 
-  async removeProject() {
+ async removeProject(id) {
     try {
       const project = await projectService.removeProject(id)
       return project
     } catch (error) {
-      logger.logger('Failed removing Project', error)
+      logger.log('Failed removing Project', error)
     }
-   }
+  }
+
  }

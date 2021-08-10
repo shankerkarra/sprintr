@@ -3,7 +3,7 @@ import { logger } from '../utils/Logger'
 import {api} from './AxiosService'
 
 class ProjectService {
-  async getAll(query = {}) {
+  async getAll() {
     const res = await api.get('api/projects')
     logger.log('All the projects : ', res.data)
     AppState.projects = res.data

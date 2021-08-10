@@ -11,6 +11,7 @@ class ProjectService {
 
   async getProjectById(id) {
     const res = await api.get('api/projects/' + id)
+    if(!res)
     logger.log('A single project : ', res.data)
     AppState.project = res.data
   }

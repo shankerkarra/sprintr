@@ -1,5 +1,5 @@
-import { BadRequest } from '../utils/Errors'
-import { dbContext } from '../db/DbContext'
+import { BadRequest } from '../../../sprintr/server/utils/Errors'
+import { dbContext } from '../../../sprintr/server/db/DbContext'
 
 class BacklogService {
   async getAll(query = {}) {

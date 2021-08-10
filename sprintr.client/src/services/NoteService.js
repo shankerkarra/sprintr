@@ -5,31 +5,31 @@ import { api } from '../../../sprintr/client/app/Services/AxiosService.js'
 import { AppState } from '../AppState.js'
 
 class NoteService {
-  async getAllNote() {
+  async getAll() {
     const res = await api.get('api/notes')
     logger.log('gEtting all notes', res.data)
     AppState.note = res.data
   }
 
-  async getNoteById(id) {
+  async getById(id) {
     const res = await api.get('api/notes/' + id)
     logger.log('fetched single Note', res.data)
     AppState.note = res.data
   }
 
-  async addNote(body) {
+  async create(body) {
     const res = await api.post('api/notes', body)
     logger.log('Created Note', res.data)
     AppState.note.push(res.data)
   }
 
-  async updateNote(id, body) {
+  async update(id, body) {
     const res = await api.put('api/notes/' + id, body)
     logger.log('Udated Notes', res.data)
     AppState.note = res.data
   }
 
-  async deleteNote(id) {
+  async destroy(id) {
     await api.deleteNote('api/notes' + id)
     AppState.note = AppState.note.find(n => n.id !== id)
 

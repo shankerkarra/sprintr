@@ -3,13 +3,13 @@ import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
 class SprintService {
-  async getAllSprint() {
+  async getAll() {
     const res = await api.get('api/sprint')
     logger.log('Fetched All Sprints', res.data)
     AppState.sprint = res.data
   }
 
-  async getsprintById(id) {
+  async getById(id) {
     const res = await api.get('api/sprint/' + id)
     logger.log('Fetched single data', res.data)
     AppState.sprint = res.data
@@ -21,19 +21,19 @@ class SprintService {
     AppState.task = res.data
   }
 
-  async addSprint(body) {
+  async creaate(body) {
     const res = await api.post('api/sprint', body)
     logger.log('Created Sprint', res.data)
     AppState.sprint.push = res.data
   }
 
-  async updateSprint(id, body) {
+  async update(id, body) {
     const res = await api.put('api/sprint/' + id, body)
     logger.log('Updated Sprint', res.data)
     AppState.sprint = res.data
   }
 
-  async deleteSprint(id) {
+  async destroy(id) {
     await api.delete('api/sprint/' + id)
     AppState.sprint = AppState.sprint.find(s => s.id != id)
     logger.log('Deleted Sucessfully')

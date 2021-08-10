@@ -15,6 +15,18 @@ class ProjectService {
     AppState.project = res.data
   }
 
+  async getBacklogByProject(id) {
+    const res = await api.get('api/projects/' + id + '/backlog')
+    logger.log('All the Backlogs Items on this Project : ', res.data)
+    AppState.backlogitem = res.data
+  }
+
+  async getTasksByProject(id) {
+    const res = await api.get('api/projects/' + id + '/task')
+    logger.log('All the Tasks Items on this Project : ', res.data)
+    AppState.task = res.data
+  }
+
   async create(body) {
     const res = await api.post('api/projects', body)
     logger.log('Added A project : ', res.data)

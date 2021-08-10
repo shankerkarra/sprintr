@@ -15,6 +15,12 @@ class BacklogService {
     AppState.backlogitems = res.data
   }
 
+  async getTasksbyBacklog(id) {
+    const res = await api.get('api/backlog/' + id + '/tasks')
+    logger.log('All Tasks for this Backlog : ', res.data)
+    AppState.task = res.data
+  }
+
   async create(body) {
     const res = await api.post('api/backlog', body)
     logger.log('Added A Backlog : ', res.data)

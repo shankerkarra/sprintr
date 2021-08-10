@@ -1,7 +1,7 @@
-import { ProxyState } from '../AppState.js'
-import Note from '../Models/Note.js'
-import { logger } from '../Utils/Logger.js'
-import { api } from '../Services/AxiosService.js'
+import { ProxyState } from '../../../sprintr/client/app/AppState.js'
+import Note from '../../../sprintr/client/app/Models/Note.js'
+import { logger } from '../../../sprintr/client/app/Utils/Logger.js'
+import { api } from '../../../sprintr/client/app/Services/AxiosService.js'
 
 class NoteService {
   async getAllNote() {

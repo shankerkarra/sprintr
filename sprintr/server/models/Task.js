@@ -9,8 +9,7 @@ export const Task = new Schema(
     projectId: { type: ObjectId, ref: 'Project', required: true },
     sprintId: { type: ObjectId, ref: 'Sprint', required: true },
     backLogItemId: { type: ObjectId, ref: 'BackLogItem', required: true },
-    creatorId: { type: ObjectId, ref: 'Account', required: true },
-    asignedTo: { type: [ObjectId }
+    creatorId: { type: ObjectId, ref: 'Account', required: true }
   }
 )
 Task.virtual('account', {

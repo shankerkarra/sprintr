@@ -1,9 +1,11 @@
 <template>
-  <div class="col-md-7 col-7 bg-primary d-flex mt-3 justify-content-between">
-    <p class="pt-3">
-      {{ project.name }}
+  <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between">
+    <p class="pt-3 text-light hoverable">
+      <router-link :to="{ name: 'ProjectInfo' }">
+        {{ project.name }}
+      </router-link>
     </p>
-    <h5 class="pt-3 action" v-if="account.id === project.creatorId" @click="destory(project._id)">
+    <h5 class="pt-3 hoverable" v-if="account.id === project.creatorId" @click="destory(project._id)">
       🗑
     </h5>
   </div>
@@ -35,7 +37,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.action {
+.hoverable {
   cursor: pointer;
 }
 </style>

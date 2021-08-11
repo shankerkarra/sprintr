@@ -25,7 +25,7 @@ export class ProjectController extends BaseController {
       const projects = await projectService.getAll({ creatorId: req.userInfo.id })
       res.send(projects)
     } catch (error) {
-      next('We had trouble getting the projects : ', error)
+      next(error)
     }
   }
 
@@ -34,7 +34,7 @@ export class ProjectController extends BaseController {
       const project = await projectService.getById(req.params.id)
       res.send(project)
     } catch (error) {
-      next('We had trouble getting that projects Id : ', error)
+      next(error)
     }
   }
 
@@ -43,16 +43,16 @@ export class ProjectController extends BaseController {
       const backLog = await backlogService.getAll({ projectId: req.params.id })
       res.send(backLog)
     } catch (error) {
-      next('We had trouble getting the tasks of that project : ', error)
+      next(error)
     }
   }
 
   async getAllTasksByProject(req, res, next) {
     try {
-      const task = await taskService.getAll({ projectId: req.params.id })
+      const task = await taskService.getByProjectId({ projectId: req.params.id })
       res.send(task)
     } catch (error) {
-      next('We had trouble getting the tasks of that project : ', error)
+      next(error)
     }
   }
 
@@ -61,7 +61,7 @@ export class ProjectController extends BaseController {
       const sprint = await sprintService.getAll({ projectId: req.params.id })
       res.send(sprint)
     } catch (error) {
-      next('We had trouble getting the sprints for that project : ', error)
+      next(error)
     }
   }
 
@@ -72,7 +72,7 @@ export class ProjectController extends BaseController {
       const project = await projectService.createProject(req.body)
       res.send(project)
     } catch (error) {
-      next('We had trouble making that Project : ', error)
+      next(error)
     }
   }
 
@@ -82,7 +82,7 @@ export class ProjectController extends BaseController {
       const project = await projectService.updateProject(req.body)
       res.send(project)
     } catch (error) {
-      next('We had trouble editing that Project', error)
+      next(error)
     }
   }
 
@@ -92,7 +92,7 @@ export class ProjectController extends BaseController {
       await projectService.destroy(req.params.id, user)
       res.send({ message: 'That project has been deleted!' })
     } catch (error) {
-      next('We had trouble deleting that Project', error)
+      next(error)
     }
   }
 }

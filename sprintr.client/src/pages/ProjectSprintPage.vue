@@ -113,12 +113,13 @@ import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { projectService } from '../services/ProjectService'
 import { AppState } from '../AppState'
+import { sprintService } from '../services/SprintService'
 export default {
   name: 'ProjectSprint',
   setup() {
     const route = useRoute()
     const state = reactive({
-      newSprint: {}
+      newSprint: { projectId: route.params.id }
     })
     onMounted(async() => {
       try {
@@ -130,7 +131,17 @@ export default {
     })
     return {
       state,
-      project: computed(() => AppState.activeProject)
+      project: computed(() => AppState.activeProject),
+      sprint: computed(() => AppState.sprints),
+      async create() {
+        try {
+          await sprintService.create(state.newSprint)
+          state.newSprint = {}
+          state.newSprint = { projectId: route.params.id }
+        } catch (error) {
+          Pop.toast('We couldn\'t make that Sprint - ', error)
+        }
+      }
     }
   }
 }

@@ -118,7 +118,6 @@ import { useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { projectService } from '../services/ProjectService'
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
 import { backlogService } from '../services/BacklogService'
 
 export default {
@@ -134,7 +133,7 @@ export default {
         await projectService.getById(route.params.id)
         await projectService.getBacklogByProject(route.params.id)
       } catch (error) {
-        Pop.toast('Error fetching Sprints', error)
+        Pop.toast('Error fetching Backlogs', error)
       }
     })
     return {
@@ -147,8 +146,6 @@ export default {
       },
       async create() {
         try {
-          logger.log('The Project Id - ', route.params.id)
-          logger.log('The forms info -', state.newBacklog)
           await backlogService.create(state.newBacklog)
           await projectService.getBacklogByProject(route.params.id)
           state.newBacklog = {}

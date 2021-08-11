@@ -2,6 +2,10 @@ import { BadRequest } from '../utils/Errors'
 import { dbContext } from '../db/DbContext'
 
 class NoteService {
+  async getAll(query = {}) {
+    return await dbContext.Note.find(query)
+  }
+
   async getById(id) {
     const note = await dbContext.Note.findById(id)
     if (!note) {

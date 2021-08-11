@@ -15,7 +15,7 @@ class SprintService {
     AppState.tasks = res.data
   }
 
-  async creaate(body) {
+  async create(body) {
     const res = await api.post('api/sprint', body)
     logger.log('Created Sprint', res.data)
     AppState.sprints.push = res.data

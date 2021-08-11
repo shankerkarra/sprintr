@@ -3,6 +3,10 @@ import { dbContext } from '../db/DbContext'
 import Sprint from '../models/Sprint'
 
 class SprintService {
+  async getAll(query = {}) {
+    return await dbContext.Sprint.find(query)
+  }
+
   async getById(id) {
     const sprint = await dbContext.Sprint.findById(id)
     if (!sprint) {

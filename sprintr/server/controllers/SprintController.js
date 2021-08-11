@@ -20,7 +20,7 @@ export class SprintController extends BaseController {
       const sprint = await sprintService.getById(req.params.id)
       res.send(sprint)
     } catch (error) {
-      next('We had a problem getting that Sprint : ', error)
+      next(error)
     }
   }
 
@@ -29,7 +29,7 @@ export class SprintController extends BaseController {
       const task = await taskService.getAll({ sprintId: req.params.id })
       res.send(task)
     } catch (error) {
-      next('We had a problem getting the Tasks for that Sprint', error)
+      next(error)
     }
   }
 
@@ -38,7 +38,7 @@ export class SprintController extends BaseController {
       const sprint = await sprintService.createSprint(req.body)
       res.send(sprint)
     } catch (error) {
-      next('We had a problem creating that Sprint', error)
+      next(error)
     }
   }
 
@@ -48,7 +48,7 @@ export class SprintController extends BaseController {
       const project = await sprintService.updateSprint(req.body)
       res.send(project)
     } catch (error) {
-      next('We had trouble editing that Project', error)
+      next(error)
     }
   }
 
@@ -57,7 +57,7 @@ export class SprintController extends BaseController {
       await sprintService.destroy(req.params.id)
       res.send({ message: 'That project has been deleted!' })
     } catch (error) {
-      next('We had trouble deleting that Project', error)
+      next(error)
     }
   }
 }

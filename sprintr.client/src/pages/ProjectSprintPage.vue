@@ -136,6 +136,7 @@ export default {
       async create() {
         try {
           await sprintService.create(state.newSprint)
+          await projectService.getSprintsByProject(route.params.id)
           state.newSprint = {}
           state.newSprint = { projectId: route.params.id }
         } catch (error) {

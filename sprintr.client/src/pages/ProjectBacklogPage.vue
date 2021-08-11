@@ -4,7 +4,9 @@
       <h4> Backlog </h4>
     </div>
     <div class="col-md-2 col-6 border border-dark text-center bg-grey">
-      <h4> Sprint </h4>
+      <router-link :to="{ name: 'ProjectSprint' }">
+        <h4> Sprint </h4>
+      </router-link>
     </div>
   </div>
 </template>

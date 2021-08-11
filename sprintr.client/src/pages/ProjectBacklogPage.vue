@@ -107,6 +107,9 @@
       </div>
     </div>
   </div>
+  <div class="row justify-content-center mt-3">
+    <BackLogCard v-for="b in backlogs" :key="b.id" :backlog="b" />
+  </div>
 </template>
 
 <script>
@@ -137,6 +140,7 @@ export default {
     return {
       state,
       project: computed(() => AppState.activeProject),
+      backlogs: computed(() => AppState.backlogitems),
       async destroy(id) {
         await projectService.destroy(id)
         router.push({ name: 'Home' })

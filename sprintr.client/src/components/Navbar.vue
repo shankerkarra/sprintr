@@ -20,7 +20,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link :to="{ name: 'Home' }" class="nav-link">
-            Home
+            Projects
           </router-link>
         </li>
         <li class="nav-item">

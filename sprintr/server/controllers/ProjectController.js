@@ -9,11 +9,12 @@ export class ProjectController extends BaseController {
   constructor() {
     super('api/projects')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAllProjects)
       .get('/:id', this.getById)
       .get('/:id/backlog', this.getAllBackLogItemsByProject)
+      .get('/:id/sprint', this.getAllSprintsByProject)
       .get('/:id/task', this.getAllTasksByProject)
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
@@ -21,7 +22,7 @@ export class ProjectController extends BaseController {
 
   async getAllProjects(req, res, next) {
     try {
-      const projects = await projectService.getAll(req.query)
+      const projects = await projectService.getAll({ creatorId: req.userInfo.id })
       res.send(projects)
     } catch (error) {
       next('We had trouble getting the projects : ', error)

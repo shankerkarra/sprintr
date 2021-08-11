@@ -1,4 +1,4 @@
-import { BadRequest } from '../utils/Errors' 
+import { BadRequest } from '../utils/Errors'
 import { dbContext } from '../db/DbContext'
 
 class BacklogService {
@@ -15,7 +15,7 @@ class BacklogService {
   }
 
   async getBacklogByProjectId(projectid) {
-    const backlog = await dbContext.Backlog.findBacklogByProjectId(projectid)
+    const backlog = await dbContext.Backlog.findById(projectid)
     if (!backlog) {
       throw new BadRequest('Invalid Backlog by Project ID')
     }
@@ -23,7 +23,7 @@ class BacklogService {
   }
 
   async getBacklogByCreatorId(creatorid) {
-    const backlog = await dbContext.Backlog.findBacklogByCreatorId(creatorid)
+    const backlog = await dbContext.Backlog.findById(creatorid)
     if (!backlog) {
       throw new BadRequest('Invalid Backlog by Creator ID')
     }

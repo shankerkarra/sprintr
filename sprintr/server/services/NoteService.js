@@ -15,7 +15,7 @@ class NoteService {
   }
 
   async getNoteByTaskId(taskid) {
-    const note = await dbContext.Note.findByTaskId(taskid)
+    const note = await dbContext.Note.findById(taskid)
     if (!note) {
       throw new BadRequest('Invalid Task ID')
     }
@@ -23,7 +23,7 @@ class NoteService {
   }
 
   async getNoteByCreatorId(creatorid) {
-    const note = await dbContext.Note.findByCreatorId(creatorid)
+    const note = await dbContext.Note.findById(creatorid)
     if (!note) {
       throw new BadRequest('Invalid Creator ID')
     }

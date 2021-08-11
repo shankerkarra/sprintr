@@ -12,7 +12,21 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core'
+import { useRoute } from 'vue-router'
+import Pop from '../utils/Notifier'
+import { projectService } from '../services/ProjectService'
 export default {
-  name: 'ProjectSprint'
+  name: 'ProjectSprint',
+  setup() {
+    const route = useRoute()
+    onMounted(async() => {
+      try {
+        await projectService.getSprintsByProject(route.params.id)
+      } catch (error) {
+        Pop.toast('Error fetching Sprints', error)
+      }
+    })
+  }
 }
 </script>

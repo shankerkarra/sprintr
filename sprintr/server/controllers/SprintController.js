@@ -1,11 +1,13 @@
-import { sprintService } from "../services/SprintService";
-import { taskService } from "../services/TaskService";
-import BaseController from "../utils/BaseController";
+import { sprintService } from '../services/SprintService'
+import { taskService } from '../services/TaskService'
+import BaseController from '../utils/BaseController'
+import { Auth0Provider } from '@bcwdev/auth0provider'
 
-export class SprintController extends BaseController{
+export class SprintController extends BaseController {
   constructor() {
     super('api/sprint')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getAllTasksBySprint)
@@ -13,6 +15,7 @@ export class SprintController extends BaseController{
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
   }
+
   async getAll(req, res, next) {
     try {
       const sprints = await sprintService.getAll(req.query)
@@ -21,6 +24,7 @@ export class SprintController extends BaseController{
       next('We had a problem getting the Sprints : ', error)
     }
   }
+
   async getById(req, res, next) {
     try {
       const sprint = await sprintService.getById(req.params.id)
@@ -29,6 +33,7 @@ export class SprintController extends BaseController{
       next('We had a problem getting that Sprint : ', error)
     }
   }
+
   async getAllTasksBySprint(req, res, next) {
     try {
       const task = await taskService.getAll({ sprintId: req.params.id })
@@ -37,6 +42,7 @@ export class SprintController extends BaseController{
       next('We had a problem getting the Tasks for that Sprint', error)
     }
   }
+
   async create(req, res, next) {
     try {
       const sprint = await sprintService.createSprint(req.body)
@@ -59,7 +65,7 @@ export class SprintController extends BaseController{
   async destroy(req, res, next) {
     try {
       await sprintService.destroy(req.params.id)
-      res.send({message: 'That project has been deleted!'})
+      res.send({ message: 'That project has been deleted!' })
     } catch (error) {
       next('We had trouble deleting that Project', error)
     }

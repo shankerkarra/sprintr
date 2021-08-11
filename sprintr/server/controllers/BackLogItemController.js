@@ -1,11 +1,13 @@
 import { backlogService } from '../services/BacklogService'
 import { taskService } from '../services/TaskService'
 import BaseController from '../utils/BaseController'
+import { Auth0Provider } from '@bcwdev/auth0provider'
 
 export class BackLogItemController extends BaseController {
   constructor() {
     super('api/backlog')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getAllTasksByBacklog)

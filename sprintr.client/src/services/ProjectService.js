@@ -21,6 +21,12 @@ class ProjectService {
     AppState.backlogitems = res.data
   }
 
+  async getSprintsByProject(id) {
+    const res = await api.get('api/projects/' + id + '/sprint')
+    logger.log('All the Sprint Items on this Project : ', res.data)
+    AppState.sprints = res.data
+  }
+
   async getTasksByProject(id) {
     const res = await api.get('api/projects/' + id + '/task')
     logger.log('All the Tasks Items on this Project : ', res.data)

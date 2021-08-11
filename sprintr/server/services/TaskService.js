@@ -15,7 +15,7 @@ class TaskService {
   }
 
   async getByProjectId(projectid) {
-    const task = await dbContext.Task.findByProjectId(projectid)
+    const task = await dbContext.Task.findById(projectid)
     if (!task) {
       throw new BadRequest('Invalid Project ID')
     }
@@ -23,7 +23,7 @@ class TaskService {
   }
 
   async getBySprintId(sprintid) {
-    const task = await dbContext.Task.findBySprintId(sprintid)
+    const task = await dbContext.Task.findById(sprintid)
     if (!task) {
       throw new BadRequest('Invalid Sprint ID')
     }
@@ -31,7 +31,7 @@ class TaskService {
   }
 
   async getByBacklogId(backlogid) {
-    const task = await dbContext.Task.findByBacklogId(backlogid)
+    const task = await dbContext.Task.findById(backlogid)
     if (!task) {
       throw new BadRequest('Invalid Project ID')
     }
@@ -39,7 +39,7 @@ class TaskService {
   }
 
   async getByCreatorId(taskid) {
-    const task = await dbContext.Task.findByCreatorId(taskid)
+    const task = await dbContext.Task.findById(taskid)
     if (!task) {
       throw new BadRequest('Invalid Creator ID')
     }

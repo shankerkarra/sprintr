@@ -1,10 +1,12 @@
-import { noteService } from '../services/NoteService';
-import BaseController from '../utils/BaseController';
+import { noteService } from '../services/NoteService'
+import BaseController from '../utils/BaseController'
+import { Auth0Provider } from '@bcwdev/auth0provider'
 
 export class NoteController extends BaseController {
   constructor() {
     super('api/notes')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get(':/id', this.getById)
       .post('', this.create)
@@ -52,7 +54,7 @@ export class NoteController extends BaseController {
   async destroy(req, res, next) {
     try {
       await noteService.destroy(req.params.id)
-      res.send({message: 'That project has been deleted!'})
+      res.send({ message: 'That project has been deleted!' })
     } catch (error) {
       next('We had trouble deleting that Project', error)
     }

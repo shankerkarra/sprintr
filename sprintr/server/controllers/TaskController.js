@@ -1,11 +1,13 @@
 import { noteService } from '../services/NoteService'
 import { taskService } from '../services/TaskService'
 import BaseController from '../utils/BaseController'
+import { Auth0Provider } from '@bcwdev/auth0provider'
 
 export class TaskController extends BaseController {
   constructor() {
     super('api/tasks')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/notes', this.getAllNotesByTask)

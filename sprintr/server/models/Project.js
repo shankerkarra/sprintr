@@ -6,14 +6,14 @@ export const Project = new Schema(
   {
     name: { type: String, required: true },
     description: { type: String },
-    creatorId: { type: ObjectId, ref: 'Account' }
+    creatorId: { type: ObjectId, ref: 'Account', required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
-Project.virtual('account', {
+Project.virtual('creator', {
   ref: 'Account',
   localField: 'creatorId',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
 

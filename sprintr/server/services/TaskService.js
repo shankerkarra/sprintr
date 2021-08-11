@@ -2,10 +2,6 @@ import { BadRequest } from '../utils/Errors'
 import { dbContext } from '../db/DbContext'
 
 class TaskService {
-  async getAll(query = {}) {
-    return await dbContext.Task.find(query)
-  }
-
   async getById(id) {
     const task = await dbContext.Task.findById(id)
     if (!task) {

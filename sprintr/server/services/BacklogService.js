@@ -2,10 +2,6 @@ import { BadRequest } from '../utils/Errors'
 import { dbContext } from '../db/DbContext'
 
 class BacklogService {
-  async getAll(query = {}) {
-    return await dbContext.Backlog.find(query)
-  }
-
   async getById(id) {
     const backlog = await dbContext.Backlog.findById(id)
     if (!backlog) {

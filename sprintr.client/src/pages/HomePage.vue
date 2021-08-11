@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <ProjectForm />
+  </div>
   <div class="row justify-content-center mt-3" v-if="user.isAuthenticated">
     <ProjectCard v-for="p in projects" :key="p.id" :project="p" />
   </div>
@@ -12,6 +15,7 @@ import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, onMounted, reactive } from 'vue'
 import { projectService } from '../services/ProjectService'
+import ProjectForm from '../components/ProjectForm.vue'
 import Pop from '../utils/Notifier'
 export default {
   name: 'Home',
@@ -37,6 +41,9 @@ export default {
         AuthService.logout({ returnTo: window.location.origin })
       }
     }
+  },
+  components: {
+    ProjectForm
   }
 }
 </script>

@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 export const Project = new Schema(
   {
     name: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
     creatorId: { type: ObjectId, ref: 'Account', required: true }
   }
 )

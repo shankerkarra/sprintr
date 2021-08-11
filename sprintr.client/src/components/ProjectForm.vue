@@ -47,7 +47,7 @@ export default {
           const newId = await projectService.create(state.newProject)
           await projectService.getAll()
           state.newProject = {}
-          router.push({ name: 'ProjectInfo', params: { id: newId } })
+          router.push({ name: 'ProjectBacklog', params: { id: newId } })
         } catch (error) {
           Pop.toast('We could not make that Post', error)
         }

@@ -26,6 +26,11 @@ const routes = [
     path: '/projectBacklog/:id',
     name: 'ProjectBacklog',
     component: loadPage('ProjectBacklogPage')
+  },
+  {
+    path: '/projectSprint/:id',
+    name: 'ProjectSprint',
+    component: loadPage('ProjectSprintPage')
   }
 ]
 

@@ -5,7 +5,7 @@
         {{ project.name }}
       </router-link>
     </p>
-    <h5 class="pt-3 hoverable" v-if="account.id === project.creatorId" @click="destory(project.id)">
+    <h5 class="pt-3 hoverable" @click="destory(project.id)">
       🗑
     </h5>
   </div>

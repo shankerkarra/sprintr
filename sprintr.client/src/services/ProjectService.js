@@ -12,7 +12,7 @@ class ProjectService {
   async getById(id) {
     const res = await api.get('api/projects/' + id)
     logger.log('A single project : ', res.data)
-    AppState.projects = res.data
+    AppState.activeProject = res.data
   }
 
   async getBacklogByProject(id) {

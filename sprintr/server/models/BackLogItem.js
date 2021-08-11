@@ -5,23 +5,24 @@ const ObjectId = Schema.Types.ObjectId
 export const BackLogItem = new Schema(
   {
     name: { type: String, required: true },
-    body: { type: String, required: true },
-    isOpen: { type: Boolean, required: true },
+    body: { type: String },
+    isOpen: { type: Boolean, default: false, required: true },
     projectId: { type: ObjectId, ref: 'Project', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true },
     color: { type: String }
-  }
+  },
+  { timestamps: true, toJSON: { virtuals: true } }
 )
-BackLogItem.virtual('account', {
+BackLogItem.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
 BackLogItem.virtual('project', {
   localField: 'projectId',
   ref: 'Project',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
 

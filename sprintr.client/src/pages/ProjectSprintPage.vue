@@ -1,7 +1,7 @@
 <template>
   <div class="row bg-dark justify-content-start">
     <div class="col-md-2 col-12 text-light">
-      <h5 class="hoverable" data-toggle="modal" data-target="#exampleModalCenter">
+      <h5 class="hoverable pt-1" data-toggle="modal" data-target="#exampleModalCenter">
         {{ project.name }}
       </h5>
 

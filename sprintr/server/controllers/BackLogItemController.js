@@ -21,7 +21,7 @@ export class BackLogItemController extends BaseController {
       const backlogs = await backlogService.getAll(req.query)
       res.send(backlogs)
     } catch (error) {
-      next('We had a problem getting the Backlog Items : ', error)
+      next(error)
     }
   }
 
@@ -30,7 +30,7 @@ export class BackLogItemController extends BaseController {
       const backlog = await backlogService.getById(req.params.id)
       res.send(backlog)
     } catch (error) {
-      next('We had a problem getting that Backlog Item : ', error)
+      next(error)
     }
   }
 
@@ -39,16 +39,17 @@ export class BackLogItemController extends BaseController {
       const task = await taskService.getAll({ backlogId: req.params.id })
       res.send(task)
     } catch (error) {
-      next('We had a problem getting those Tasks for this Backlog Item : ', error)
+      next(error)
     }
   }
 
   async create(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const backlog = await backlogService.createBacklog(req.body)
       res.send(backlog)
     } catch (error) {
-      next('We had a problem creating that Backlog Item : ', error)
+      next(error)
     }
   }
 
@@ -58,16 +59,17 @@ export class BackLogItemController extends BaseController {
       const project = await backlogService.updateBacklog(req.body)
       res.send(project)
     } catch (error) {
-      next('We had trouble editing that Project', error)
+      next(error)
     }
   }
 
   async destroy(req, res, next) {
     try {
-      await backlogService.destroy(req.params.id)
+      const user = req.userInfo
+      await backlogService.destroy(req.params.id, user)
       res.send({ message: 'That project has been deleted!' })
     } catch (error) {
-      next('We had trouble deleting that Project', error)
+      next(error)
     }
   }
 }

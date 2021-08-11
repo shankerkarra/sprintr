@@ -11,12 +11,13 @@ export const Sprint = new Schema(
     projectId: { type: ObjectId, ref: 'Project', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true },
     color: { type: String }
-  }
+  },
+  { timestamps: true, toJSON: { virtuals: true } }
 )
-Sprint.virtual('account', {
+Sprint.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
 Sprint.virtual('project', {

@@ -10,12 +10,13 @@ export const Task = new Schema(
     sprintId: { type: ObjectId, ref: 'Sprint' },
     backlogId: { type: ObjectId, ref: 'BackLogItem', required: true },
     creatorId: { type: ObjectId, ref: 'Account', required: true }
-  }
+  },
+  { timestamps: true, toJSON: { virtuals: true } }
 )
-Task.virtual('account', {
+Task.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
 Task.virtual('project', {

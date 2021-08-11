@@ -7,20 +7,10 @@ export class NoteController extends BaseController {
     super('api/notes')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get(':/id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
-  }
-
-  async getAll(req, res, next) {
-    try {
-      const notes = await noteService.getAll(req.query)
-      res.send(notes)
-    } catch (error) {
-      next('We had trouble getting the Notes', error)
-    }
   }
 
   async getById(req, res, next) {

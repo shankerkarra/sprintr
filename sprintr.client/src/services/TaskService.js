@@ -3,12 +3,6 @@ import { logger } from '../Utils/Logger.js'
 import { api } from '../Services/AxiosService.js'
 
 class TaskService {
-  async getAll() {
-    const res = await api.get('api/tasks')
-    logger.log('Get all Task', res.data)
-    AppState.tasks = res.data
-  }
-
   async getTaskById(id) {
     const res = await api.get('api/tasks/' + id)
     logger.log('fetched single task by id', res.data)

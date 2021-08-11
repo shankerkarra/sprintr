@@ -3,12 +3,6 @@ import { api } from './AxiosService'
 import { logger } from '../utils/Logger.js'
 
 class BacklogService {
-  // async getAll() {
-  //   const res = await api.get('api/backlog')
-  //   logger.log('All the Backlogs : ', res.data)
-  //   AppState.backlogitems = res.data
-  // }
-
   async getById(id) {
     const res = await api.get('api/backlog/' + id)
     logger.log('A single Backlog : ', res.data)

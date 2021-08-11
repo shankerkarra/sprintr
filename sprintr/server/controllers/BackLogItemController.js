@@ -8,21 +8,11 @@ export class BackLogItemController extends BaseController {
     super('api/backlog')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getAllTasksByBacklog)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
-  }
-
-  async getAll(req, res, next) {
-    try {
-      const backlogs = await backlogService.getAll(req.query)
-      res.send(backlogs)
-    } catch (error) {
-      next(error)
-    }
   }
 
   async getById(req, res, next) {

@@ -8,21 +8,11 @@ export class SprintController extends BaseController {
     super('api/sprint')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getAllTasksBySprint)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
-  }
-
-  async getAll(req, res, next) {
-    try {
-      const sprints = await sprintService.getAll(req.query)
-      res.send(sprints)
-    } catch (error) {
-      next('We had a problem getting the Sprints : ', error)
-    }
   }
 
   async getById(req, res, next) {

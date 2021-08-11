@@ -8,21 +8,11 @@ export class TaskController extends BaseController {
     super('api/tasks')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/notes', this.getAllNotesByTask)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)
-  }
-
-  async getAll(req, res, next) {
-    try {
-      const tasks = await taskService.getAll(req.query)
-      res.send(tasks)
-    } catch (error) {
-      next('We had trouble getting the Tasks : ', error)
-    }
   }
 
   async getById(req, res, next) {

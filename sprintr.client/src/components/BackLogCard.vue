@@ -5,7 +5,7 @@
         {{ backlog.name }}
       </router-link> -->
     </p>
-    <h5 class="pt-3 hoverable" @click="destory(backlog.id)">
+    <h5 class="pt-3 hoverable" @click="destory(backlog.id, project.id)">
       🗑
     </h5>
   </div>
@@ -16,6 +16,7 @@ import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { backlogService } from '../services/BacklogService'
+import { projectService } from '../services/ProjectService'
 export default {
   props: {
     backlog: {
@@ -26,10 +27,12 @@ export default {
   setup() {
     return {
       account: computed(() => AppState.account),
-      async destory(id) {
+      project: computed(() => AppState.activeProject),
+      async destory(id, projectid) {
+        logger.log(AppState.activeProject)
         logger.log(id)
         await backlogService.destroy(id)
-        await backlogService.getAll()
+        await projectService.getBacklogByProject(projectid)
       }
     }
   }

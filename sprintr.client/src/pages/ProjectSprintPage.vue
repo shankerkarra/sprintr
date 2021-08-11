@@ -46,10 +46,69 @@
       <h4> Sprint </h4>
     </div>
   </div>
+  <div class="row mt-2 justify-content-center">
+    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#sprint">
+      Make Sprint
+    </button>
+    <div class="modal fade"
+         id="sprint"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="sprintLabel"
+         aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sprintLabel">
+              New Sprint
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="create()">
+              <div class="form-group">
+                <label for="sprint-name" class="col-form-label">Name:</label>
+                <input type="text" class="form-control" v-model="state.newSprint.name" id="sprint-name" required>
+              </div>
+              <div class="form-group">
+                <label for="startDate" class="col-form-label">Start Date:</label>
+                <input type="date" class="form-control" v-model="state.newSprint.startDate" id="startDate" required>
+              </div>
+              <div class="form-group">
+                <label for="endDate" class="col-form-label">End Date:</label>
+                <input type="date" class="form-control" v-model="state.newSprint.endDate" id="endDate" required>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="isOpen" v-model="state.newSprint.isOpen">
+                    <label class="form-check-label" for="isOpen" required>
+                      Is Open?
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success">
+                  Create
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { projectService } from '../services/ProjectService'
@@ -58,6 +117,9 @@ export default {
   name: 'ProjectSprint',
   setup() {
     const route = useRoute()
+    const state = reactive({
+      newSprint: {}
+    })
     onMounted(async() => {
       try {
         await projectService.getById(route.params.id)
@@ -67,6 +129,7 @@ export default {
       }
     })
     return {
+      state,
       project: computed(() => AppState.activeProject)
     }
   }

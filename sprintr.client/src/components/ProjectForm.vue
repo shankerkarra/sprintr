@@ -44,6 +44,7 @@ export default {
         try {
           await projectService.create(state.newProject)
           await projectService.getAll()
+          state.newProject = {}
         } catch (error) {
           Pop.toast('We could not make that Post', error)
         }

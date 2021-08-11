@@ -13,9 +13,9 @@ export class ProjectController extends BaseController {
       .get('/:id', this.getById)
       .get('/:id/backlog', this.getAllBackLogItemsByProject)
       .get('/:id/task', this.getAllTasksByProject)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .delete('/:id', this.destroy)
   }
 
@@ -66,6 +66,8 @@ export class ProjectController extends BaseController {
 
   async create(req, res, next) {
     try {
+      const user = req.userInfo
+      req.body.creatorId = user.id
       const project = await projectService.createProject(req.body)
       res.send(project)
     } catch (error) {

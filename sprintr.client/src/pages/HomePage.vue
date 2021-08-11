@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row justify-content-center">
     <ProjectForm />
   </div>
   <div class="row justify-content-center mt-3" v-if="user.isAuthenticated">

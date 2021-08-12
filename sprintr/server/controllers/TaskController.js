@@ -8,6 +8,7 @@ export class TaskController extends BaseController {
     super('api/tasks')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/notes', this.getAllNotesByTask)
       .post('', this.create)
@@ -15,12 +16,21 @@ export class TaskController extends BaseController {
       .delete('/:id', this.destroy)
   }
 
+  async getAll(req, res, next) {
+    try {
+      const tasks = await taskService.getAll({ creatorId: req.userInfo.id })
+      res.send(tasks)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async getById(req, res, next) {
     try {
       const task = await taskService.getById(req.params.id)
       res.send(task)
     } catch (error) {
-      next('We had trouble getting That Task : ', error)
+      next(error)
     }
   }
 
@@ -29,16 +39,17 @@ export class TaskController extends BaseController {
       const note = await noteService.getAll({ taskId: req.params.id })
       res.send(note)
     } catch (error) {
-      next('We had trouble getting The Notes for that Task : ', error)
+      next(error)
     }
   }
 
   async create(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const task = await taskService.createTask(req.body)
       res.send(task)
     } catch (error) {
-      next('We had trouble creating that Task : ', error)
+      next(error)
     }
   }
 
@@ -48,7 +59,7 @@ export class TaskController extends BaseController {
       const project = await taskService.updateTask(req.body)
       res.send(project)
     } catch (error) {
-      next('We had trouble editing that Project', error)
+      next(error)
     }
   }
 
@@ -57,7 +68,7 @@ export class TaskController extends BaseController {
       await taskService.destroy(req.params.id)
       res.send({ message: 'That project has been deleted!' })
     } catch (error) {
-      next('We had trouble deleting that Project', error)
+      next(error)
     }
   }
 }

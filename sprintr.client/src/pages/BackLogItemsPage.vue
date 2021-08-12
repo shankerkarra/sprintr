@@ -55,14 +55,65 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2 col-4 border-left border-light text-light text-center hoverable pt-1">
-      Create Tasks
+    <div class="col-md-2 col-4 border-left border-light text-light text-center pt-1">
+      <span class="hoverable" data-toggle="modal" data-target="#taskCreation"> Create Task</span>
+
+      <div class="modal fade"
+           id="taskCreation"
+           tabindex="-1"
+           role="dialog"
+           aria-labelledby="taskCreationLabel"
+           aria-hidden="true"
+      >
+        <div class="modal-dialog text-dark text-left" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="taskCreationLabel">
+                New Task
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form @submit.prevent="create()">
+                <div class="form-group">
+                  <label for="task-name" class="col-form-label">Name:</label>
+                  <input type="text" class="form-control" v-model="state.newTask.name" id="task-name" required>
+                </div>
+                <div class="form-group">
+                  <label for="task-weight" class="col-form-label">Weight:</label>
+                  <input type="number" class="form-control" v-model="state.newTask.weight" id="task-weight" required>
+                </div>
+                <div class="form-group">
+                  <label for="task-selection">Task Status</label>
+                  <select class="form-control" id="task-selection">
+                    <option>pending</option>
+                    <option>in-progress</option>
+                    <option>review</option>
+                    <option>done</option>
+                  </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-success">
+                    Create
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- <div class="row justify-content-center mt-3">
-    <TaskCard v-for="b in backlogs" :key="b.id" :backlog="b" />
-    Cross check whether we are passing the Backlog Id
-  </div> -->
+  <div class="row justify-content-center mt-3">
+    <TaskCard v-for="t in tasks" :key="t.id" :task="t" />
+  </div>
 </template>
 
 <script>
@@ -70,17 +121,16 @@ import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
-import { projectService } from '../services/ProjectService'
 import { taskService } from '../services/TaskService'
 import { backlogService } from '../services/BacklogService'
+import { logger } from '../utils/Logger'
 export default {
   name: 'BackLogItems',
   setup() {
     const route = useRoute()
     const router = useRouter()
     const state = reactive({
-      newTask: { }
-      // defaulting the SprintId = ''
+      newTask: {}
     })
     onMounted(async() => {
       try {
@@ -93,16 +143,18 @@ export default {
     return {
       state,
       backlog: computed(() => AppState.activeBacklog),
+      tasks: computed(() => AppState.tasks),
       async destroy(id) {
-        await projectService.destroy(id)
+        await backlogService.destroy(id)
         router.push({ name: 'ProjectBacklog' })
-        // Re-check the routing Page
       },
       async create() {
         try {
+          state.newTask = { backlogId: route.params.id, projectId: AppState.activeBacklog.id }
           await taskService.create(state.newtask)
-          await backlogService.getTasksbyBacklog()
+          await backlogService.getTasksbyBacklog(route.params.id)
           state.newTask = {}
+          state.newTask = { backlogId: route.params.id }
         } catch (error) {
           Pop.toast('We couldn\'t make that Task - ', error)
         }

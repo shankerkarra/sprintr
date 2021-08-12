@@ -147,7 +147,6 @@ export default {
       },
       async create() {
         try {
-          logger.log('The Project Id - ', route.params.id)
           logger.log('The forms info -', state.newBacklog)
           await backlogService.create(state.newBacklog)
           await projectService.getBacklogByProject(route.params.id)

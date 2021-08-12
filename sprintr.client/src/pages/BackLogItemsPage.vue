@@ -112,7 +112,7 @@
     </div>
   </div>
   <div class="row justify-content-center mt-3">
-    <!-- Tasks Cards Will go here -->
+    <TaskCard v-for="t in tasks" :key="t.id" :task="t" />
   </div>
 </template>
 

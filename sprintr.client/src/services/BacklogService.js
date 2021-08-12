@@ -6,7 +6,7 @@ class BacklogService {
   async getById(id) {
     const res = await api.get('api/backlog/' + id)
     logger.log('A single Backlog : ', res.data)
-    AppState.backlogitems = res.data
+    AppState.activeBacklog = res.data
   }
 
   async getTasksbyBacklog(id) {

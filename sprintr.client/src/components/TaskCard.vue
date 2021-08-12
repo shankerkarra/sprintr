@@ -55,9 +55,9 @@
           <div class="pt-2">
             <form action="">
               <div class="form-group">
-                <label for="task-selection">Current Task's Sprint :</label>
-                <select class="form-control" id="task-selection">
-                  <option v-if="!task.sprintId">
+                <label for="task-sprint">Current Task's Sprint :</label>
+                <select class="form-control" id="task-sprint">
+                  <option value="" v-if="!task.sprintId">
                     None Assigned
                   </option>
                 </select>

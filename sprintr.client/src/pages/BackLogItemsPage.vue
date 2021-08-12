@@ -1,6 +1,6 @@
 <template>
-  <div class="row bg-dark justify-content-start">
-    <div class="col-md-2 col-12 text-light">
+  <div class="row bg-dark justify-content-between">
+    <div class="col-md-2 col-8 text-light ">
       <h5 class="hoverable pt-1" data-toggle="modal" data-target="#backlogInfo">
         {{ backlog.name }}
       </h5>
@@ -54,6 +54,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-md-2 col-4 border-left border-light text-light text-center hoverable pt-1">
+      Create Tasks
     </div>
   </div>
   <!-- <div class="row justify-content-center mt-3">

@@ -43,10 +43,10 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2 col-6 border border-dark text-center bg-light">
+    <div class="col-md-2 col-6 border-left border-right border-bottom border-dark text-center bg-light">
       <h4> Backlog </h4>
     </div>
-    <div class="col-md-2 col-6 border border-dark text-center bg-grey">
+    <div class="col-md-2 col-6 border-right border-bottom border-dark text-center bg-grey">
       <router-link :to="{ name: 'ProjectSprint' }">
         <h4> Sprint </h4>
       </router-link>

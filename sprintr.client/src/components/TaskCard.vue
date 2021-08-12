@@ -109,8 +109,9 @@
                 <div class="form-group col-md-12 pt-3">
                   <input
                     type="text"
-                    name="name"
+                    name="body"
                     class="form-control"
+                    v-model="state.newNote.body"
                     placeholder="Leave a note..."
                     required
                   />
@@ -149,6 +150,7 @@ import { AppState } from '../AppState'
 import { taskService } from '../services/TaskService'
 import { backlogService } from '../services/BacklogService'
 import Pop from '../utils/Notifier'
+import { noteService } from '../services/NoteService'
 export default {
   props: {
     task: {
@@ -177,8 +179,8 @@ export default {
       },
       async create() {
         try {
-          state.newNote.taskId = AppState.activeTask.taskId
-          await taskService.create(state.newNote)
+          state.newNote.taskId = AppState.activeTask.id
+          await noteService.create(state.newNote)
           state.newNote = {}
         } catch (error) {
           Pop.toast(error)

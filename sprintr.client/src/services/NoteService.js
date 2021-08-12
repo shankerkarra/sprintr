@@ -1,5 +1,5 @@
 import { logger } from '../../../sprintr/client/app/Utils/Logger.js'
-import { api } from '../../../sprintr/client/app/Services/AxiosService.js'
+import { api } from './AxiosService'
 import { AppState } from '../AppState.js'
 
 class NoteService {

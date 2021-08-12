@@ -1,9 +1,9 @@
 <template>
-  <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between">
+  <div class="col-md-7 col-9 bg-light d-flex mt-3 justify-content-between align-items-center">
     <h5 class="pt-3 pb-2">
       <span class="action" data-toggle="modal" :data-target="'#Task' + task.id" @click="current">{{ task.name }}</span>
     </h5>
-    <h5 class="pt-3 pb-2 action" @click="destory(task.id, backlog.id)">
+    <h5 class="pt-1 action" @click="destory(task.id, backlog.id)">
       🗑
     </h5>
   </div>

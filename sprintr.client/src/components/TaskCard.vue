@@ -32,10 +32,10 @@
             <h5>{{ task.weight }} ⚖</h5>
           </div>
           <div class="pt-2">
-            <form action="">
+            <form action="" @submit.prevent="update()">
               <div class="form-group">
                 <label for="task-selection">Current Task Status : {{ task.status }}</label>
-                <select class="form-control" id="task-selection">
+                <select class="form-control" id="task-selection" v-model="state.editTask.status">
                   <option v-if="task.status !== 'pending'">
                     pending
                   </option>
@@ -156,7 +156,9 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      newNote: { }
+      newNote: { },
+      editTask: { }
+
     })
     return {
       state,
@@ -177,6 +179,15 @@ export default {
           await noteService.create(state.newNote)
           await taskService.getNotesByTasks(AppState.activeTask.id)
           state.newNote = {}
+        } catch (error) {
+          Pop.toast(error)
+        }
+      },
+
+      async update() {
+        try {
+          await taskService.update(props.task.Id, state.editTask)
+          await backlogService.getTasksbyBacklog(props.task.backlogId)
         } catch (error) {
           Pop.toast(error)
         }

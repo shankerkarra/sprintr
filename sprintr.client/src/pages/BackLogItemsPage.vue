@@ -1,7 +1,10 @@
 <template>
   <div class="row bg-dark justify-content-between">
     <div class="col-md-3 col-8 text-light ">
-      <h5 class="hoverable pt-1" data-toggle="modal" data-target="#backlogInfo">
+      <h5 class="hoverable pt-1"
+          data-toggle="modal"
+          data-target="#backlogInfo"
+      >
         {{ backlogitem.name }}
       </h5>
 
@@ -144,6 +147,9 @@ export default {
       state,
       backlogitem: computed(() => AppState.activeBacklog),
       tasks: computed(() => AppState.tasks),
+      totalWeight(total) {
+        logger.log(total)
+      },
       async destroy(id) {
         await backlogService.destroy(id)
         router.push({ name: 'ProjectBacklog' })

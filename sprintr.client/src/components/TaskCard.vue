@@ -32,7 +32,7 @@
             <h5>{{ task.weight }} ⚖</h5>
           </div>
           <div class="pt-2">
-            <form action="" @submit.prevent="update()">
+            <form @submit.prevent="update()">
               <div class="form-group">
                 <label for="task-selection">Current Task Status : {{ task.status }}</label>
                 <select class="form-control" id="task-selection" v-model="state.editTask.status">
@@ -50,6 +50,9 @@
                   </option>
                 </select>
               </div>
+              <button type="submit" class="btn btn-primary ml-3">
+                Save
+              </button>
             </form>
           </div>
           <div class="pt-2">
@@ -74,9 +77,6 @@
           <div class="col-md-5 col-8 d-flex justify-content-end">
             <button type="button" class="btn btn-danger" data-dismiss="modal">
               Cancel
-            </button>
-            <button type="button" class="btn btn-primary ml-3" data-dismiss="modal">
-              Save
             </button>
           </div>
         </div>
@@ -147,6 +147,7 @@ import { taskService } from '../services/TaskService'
 import { backlogService } from '../services/BacklogService'
 import Pop from '../utils/Notifier'
 import { noteService } from '../services/NoteService'
+import { logger } from '../utils/Logger'
 export default {
   props: {
     task: {
@@ -178,7 +179,7 @@ export default {
           state.newNote.taskId = AppState.activeTask.id
           await noteService.create(state.newNote)
           await taskService.getNotesByTasks(AppState.activeTask.id)
-          state.newNote = {}
+          state.newNote = { }
         } catch (error) {
           Pop.toast(error)
         }
@@ -186,9 +187,10 @@ export default {
 
       async update() {
         try {
-          await taskService.update(props.task.Id, state.editTask)
+          logger.log(state.editTask)
+          await taskService.update(props.task.id, state.editTask)
           await backlogService.getTasksbyBacklog(props.task.backlogId)
-          state.editTask = {}
+          state.editTask = { }
         } catch (error) {
           Pop.toast(error)
         }

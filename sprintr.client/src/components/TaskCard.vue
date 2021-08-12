@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between">
     <h5 class="pt-3 pb-2">
-      <span class="action" data-toggle="modal" data-target="#tasks">{{ task.name }}</span>
+      <span class="action" data-toggle="modal" :data-target="'#Task' + task.id">{{ task.name }}</span>
     </h5>
     <h5 class="pt-3 pb-2 action" @click="destory(task.id, backlog.id)">
       🗑
@@ -10,7 +10,7 @@
 
   <!-- Tasks Modal -->
   <div class="modal fade"
-       id="tasks"
+       :id="'Task' + task.id"
        tabindex="-1"
        role="dialog"
        aria-labelledby="tasksTitle"
@@ -67,7 +67,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <div class="col-md-2 col-2">
-            <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" data-target="#notes">
+            <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" :data-target="'#Notes' + task.id">
               Notes
             </button>
           </div>
@@ -86,7 +86,7 @@
 
   <!-- Notes Modal -->
   <div class="modal fade"
-       id="notes"
+       :id="'Notes' + task.id"
        tabindex="-1"
        role="dialog"
        aria-labelledby="notesTitle"
@@ -129,7 +129,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <div class="col-md-2 col-2">
-            <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" data-target="#tasks">
+            <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" :data-target="'#Task' + task.id">
               Back
             </button>
           </div>

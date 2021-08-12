@@ -6,7 +6,7 @@ class TaskService {
   async getTaskById(id) {
     const res = await api.get('api/tasks/' + id)
     logger.log('fetched single task by id', res.data)
-    AppState.tasks = res.data
+    AppState.activeTask = res.data
   }
 
   async getById(id) {

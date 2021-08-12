@@ -28,16 +28,17 @@ export class NoteController extends BaseController {
       const note = await noteService.getById(req.params.id)
       res.send(note)
     } catch (error) {
-      next('We had trouble getting that note', error)
+      next(error)
     }
   }
 
   async create(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const note = await noteService.createNote(req.body)
       res.send(note)
     } catch (error) {
-      next('We had trouble making that Note', error)
+      next(error)
     }
   }
 
@@ -47,16 +48,17 @@ export class NoteController extends BaseController {
       const project = await noteService.updateNote(req.body)
       res.send(project)
     } catch (error) {
-      next('We had trouble editing that Project', error)
+      next(error)
     }
   }
 
   async destroy(req, res, next) {
     try {
-      await noteService.destroy(req.params.id)
+      const user = req.userInfo
+      await noteService.destroy(req.params.id, user)
       res.send({ message: 'That project has been deleted!' })
     } catch (error) {
-      next('We had trouble deleting that Project', error)
+      next(error)
     }
   }
 }

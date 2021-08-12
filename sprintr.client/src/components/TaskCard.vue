@@ -188,6 +188,7 @@ export default {
         try {
           await taskService.update(props.task.Id, state.editTask)
           await backlogService.getTasksbyBacklog(props.task.backlogId)
+          state.editTask = {}
         } catch (error) {
           Pop.toast(error)
         }

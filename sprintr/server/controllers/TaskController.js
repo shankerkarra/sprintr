@@ -65,7 +65,8 @@ export class TaskController extends BaseController {
 
   async destroy(req, res, next) {
     try {
-      await taskService.destroy(req.params.id)
+      const user = req.userInfo
+      await taskService.destroy(req.params.id, user)
       res.send({ message: 'That project has been deleted!' })
     } catch (error) {
       next(error)

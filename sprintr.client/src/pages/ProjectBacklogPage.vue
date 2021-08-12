@@ -47,7 +47,7 @@
       <h4> Backlog </h4>
     </div>
     <div class="col-md-2 col-6 border-right border-bottom border-dark text-center bg-grey">
-      <router-link :to="{ name: 'ProjectSprint' }">
+      <router-link :to="{ name: 'ProjectSprint', params: {projectId: project.id} }">
         <h4> Sprint </h4>
       </router-link>
     </div>
@@ -127,12 +127,12 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const state = reactive({
-      newBacklog: { projectId: route.params.id }
+      newBacklog: {}
     })
     onMounted(async() => {
       try {
-        await projectService.getById(route.params.id)
-        await projectService.getBacklogByProject(route.params.id)
+        await projectService.getById(route.params.projectId)
+        await projectService.getBacklogByProject(route.params.projectId)
       } catch (error) {
         Pop.toast('Error fetching Sprints', error)
       }
@@ -148,10 +148,10 @@ export default {
       async create() {
         try {
           logger.log('The forms info -', state.newBacklog)
+          state.newBacklog.projectId = AppState.activeProject.id
           await backlogService.create(state.newBacklog)
-          await projectService.getBacklogByProject(route.params.id)
+          await projectService.getBacklogByProject(route.params.projectId)
           state.newBacklog = {}
-          state.newBacklog = { projectId: route.params.id }
         } catch (error) {
           Pop.toast('We couldn\'t make that Backlog Item - ', error)
         }

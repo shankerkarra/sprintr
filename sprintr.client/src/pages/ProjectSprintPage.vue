@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="col-md-2 col-6 border-left border-right border-bottom border-dark text-center bg-grey">
-      <router-link :to="{ name: 'ProjectBacklog' }">
+      <router-link :to="{ name: 'ProjectBacklog', params: {projectId: project.id} }">
         <h4> Backlog </h4>
       </router-link>
     </div>
@@ -122,12 +122,12 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      newSprint: { projectId: route.params.id }
+      newSprint: {}
     })
     onMounted(async() => {
       try {
-        await projectService.getById(route.params.id)
-        await projectService.getSprintsByProject(route.params.id)
+        await projectService.getById(route.params.projectId)
+        await projectService.getSprintsByProject(route.params.projectId)
       } catch (error) {
         Pop.toast('Error fetching Sprints', error)
       }
@@ -139,9 +139,9 @@ export default {
       async create() {
         try {
           await sprintService.create(state.newSprint)
-          await projectService.getSprintsByProject(route.params.id)
+          state.newBacklog.projectId = AppState.activeProject.id
+          await projectService.getSprintsByProject(route.params.projectId)
           state.newSprint = {}
-          state.newSprint = { projectId: route.params.id }
         } catch (error) {
           Pop.toast('We couldn\'t make that Sprint - ', error)
         }

@@ -1,9 +1,9 @@
 <template>
   <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between">
     <p class="pt-3 text-light hoverable">
-      <router-link :to="{ name: 'BackLogItems', params: {id: backlog.id}}">
+      <router-link :to="{ name: 'BackLogItems', params: {backlogId: backlog.id, projectId: project.id}}">
         {{ backlog.name }}
-      </router-link> -->
+      </router-link>
     </p>
     <h5 class="pt-3 hoverable" @click="destory(backlog.id, project.id)">
       🗑

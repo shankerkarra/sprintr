@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between align-items-center">
     <p class="pt-3 text-light hoverable">
-      <router-link :to="{ name: 'ProjectBacklog', params: {id: project.id} }">
+      <router-link :to="{ name: 'ProjectBacklog', params: {projectId: project.id} }">
         {{ project.name }}
       </router-link>
     </p>

@@ -1,6 +1,6 @@
 import { AppState } from '../AppState.js'
 import { logger } from '../Utils/Logger.js'
-import { api } from '../Services/AxiosService.js'
+import { api } from './AxiosService'
 
 class TaskService {
   async getTaskById(id) {
@@ -16,6 +16,7 @@ class TaskService {
   }
 
   async create(body) {
+    logger.log('Service Layer', body)
     const res = await api.post('api/tasks', body)
     logger.log('Created Task', res.data)
     AppState.tasks.push(res.data)

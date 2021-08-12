@@ -1,8 +1,8 @@
 <template>
   <div class="row bg-dark justify-content-between">
-    <div class="col-md-2 col-8 text-light ">
+    <div class="col-md-3 col-8 text-light ">
       <h5 class="hoverable pt-1" data-toggle="modal" data-target="#backlogInfo">
-        {{ backlog.name }}
+        {{ backlogitem.name }}
       </h5>
 
       <div class="modal fade"
@@ -16,33 +16,33 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                {{ backlog.name }}
+                {{ backlogitem.name }}
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" v-if="!backlog.body">
+            <div class="modal-body" v-if="!backlogitem.body">
               <p>No Description Provided</p>
-              <div class="pt-3" v-if="backlog.isOpen">
+              <div class="pt-3" v-if="backlogitem.isOpen">
                 Tasks can be created and tracked
               </div>
               <div class="pt-3" v-else>
                 🎉 Feature Complete
               </div>
-              <h5 class="pt-3 hoverable text-right pr-3" data-dismiss="modal" @click="destroy(backlog.id)">
+              <h5 class="pt-3 hoverable text-right pr-3" data-dismiss="modal" @click="destroy(backlogitem.id)">
                 🗑
               </h5>
             </div>
             <div class="modal-body" v-else>
-              <p>{{ backlog.body }}</p>
-              <div class="pt-3" v-if="backlog.isOpen">
+              <p>{{ backlogitem.body }}</p>
+              <div class="pt-3" v-if="backlogitem.isOpen">
                 Tasks can be created and tracked
               </div>
               <div class="pt-3" v-else>
                 🎉 Feature Complete
               </div>
-              <h5 class="pt-3 hoverable text-right pr-3" data-dismiss="modal" @click="destroy(backlog.id)">
+              <h5 class="pt-3 hoverable text-right pr-3" data-dismiss="modal" @click="destroy(backlogitem.id)">
                 🗑
               </h5>
             </div>
@@ -130,19 +130,19 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const state = reactive({
-      newTask: {}
+      newTask: { }
     })
     onMounted(async() => {
       try {
-        await backlogService.getById(route.params.id)
-        await backlogService.getTasksbyBacklog(route.params.id)
+        await backlogService.getById(route.params.backlogId)
+        await backlogService.getTasksbyBacklog(route.params.backlogId)
       } catch (error) {
         Pop.toast('Error fetching Backlogs', error)
       }
     })
     return {
       state,
-      backlog: computed(() => AppState.activeBacklog),
+      backlogitem: computed(() => AppState.activeBacklog),
       tasks: computed(() => AppState.tasks),
       async destroy(id) {
         await backlogService.destroy(id)
@@ -150,11 +150,11 @@ export default {
       },
       async create() {
         try {
-          state.newTask = { backlogId: route.params.id, projectId: AppState.activeBacklog.id }
-          await taskService.create(state.newtask)
-          await backlogService.getTasksbyBacklog(route.params.id)
-          state.newTask = {}
-          state.newTask = { backlogId: route.params.id }
+          state.newTask.projectId = AppState.activeBacklog.projectId
+          state.newTask.backlogId = AppState.activeBacklog.id
+          await taskService.create(state.newTask)
+          await backlogService.getTasksbyBacklog(route.params.backlogId)
+          state.newTask = { }
         } catch (error) {
           Pop.toast('We couldn\'t make that Task - ', error)
         }

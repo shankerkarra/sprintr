@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group">
                   <label for="task-selection">Task Status</label>
-                  <select class="form-control" id="task-selection">
+                  <select class="form-control" v-model="state.newTask.status" id="task-selection">
                     <option>pending</option>
                     <option>in-progress</option>
                     <option>review</option>
@@ -112,7 +112,7 @@
     </div>
   </div>
   <div class="row justify-content-center mt-3">
-    <TaskCard v-for="t in tasks" :key="t.id" :task="t" />
+    <!-- Tasks Cards Will go here -->
   </div>
 </template>
 

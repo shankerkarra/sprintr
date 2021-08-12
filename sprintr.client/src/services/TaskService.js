@@ -9,7 +9,7 @@ class TaskService {
     AppState.activeTask = res.data
   }
 
-  async getById(id) {
+  async getNotesByTasks(id) {
     const res = await api.get('api/tasks/' + id + '/notes')
     logger.log('fetched Notes by Task Id', res.data)
     AppState.notes = res.data

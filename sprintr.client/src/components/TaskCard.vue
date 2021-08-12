@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between">
     <h5 class="pt-3 pb-2">
-      <span class="action" data-toggle="modal" :data-target="'#Task' + task.id">{{ task.name }}</span>
+      <span class="action" data-toggle="modal" :data-target="'#Task' + task.id" @click="current">{{ task.name }}</span>
     </h5>
     <h5 class="pt-3 pb-2 action" @click="destory(task.id, backlog.id)">
       🗑
@@ -125,17 +125,13 @@
             </div>
           </div>
           <div class="pt-2">
+            <NotesCard v-for="n in notes" :key="n.id" :note="n" />
           </div>
         </div>
         <div class="modal-footer justify-content-between">
           <div class="col-md-2 col-2">
             <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" :data-target="'#Task' + task.id">
               Back
-            </button>
-          </div>
-          <div class="col-md-5 col-8 d-flex justify-content-end">
-            <button type="button" class="btn btn-primary ml-3" data-dismiss="modal">
-              Save
             </button>
           </div>
         </div>
@@ -145,7 +141,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { taskService } from '../services/TaskService'
 import { backlogService } from '../services/BacklogService'
@@ -162,17 +158,15 @@ export default {
     const state = reactive({
       newNote: { }
     })
-    onMounted(async() => {
-      try {
-        await taskService.getTaskById(props.task.id)
-      } catch (error) {
-        Pop.toast(error)
-      }
-    })
     return {
       state,
       account: computed(() => AppState.account),
       backlog: computed(() => AppState.activeBacklog),
+      notes: computed(() => AppState.notes),
+      async current() {
+        await taskService.getTaskById(props.task.id)
+        await taskService.getNotesByTasks(AppState.activeTask.id)
+      },
       async destory(id, backlogId) {
         await taskService.destroy(id)
         await backlogService.getTasksbyBacklog(backlogId)
@@ -181,6 +175,7 @@ export default {
         try {
           state.newNote.taskId = AppState.activeTask.id
           await noteService.create(state.newNote)
+          await taskService.getNotesByTasks(AppState.activeTask.id)
           state.newNote = {}
         } catch (error) {
           Pop.toast(error)

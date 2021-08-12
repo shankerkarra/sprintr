@@ -46,7 +46,7 @@ class NoteService {
     const note = await this.getById(id)
     if (user.id === note.creatorId.toString()) {
       await this.getById(id)
-      return await dbContext.Note.findByIdAndDelete(id)
+      return await dbContext.Note.findOneAndDelete({ _id: id })
     }
   }
 }

@@ -105,6 +105,9 @@
       </div>
     </div>
   </div>
+  <div class="row justify-content-center mt-3">
+    <SprintsCard v-for="s in sprints" :key="s.id" :sprint="s" />
+  </div>
 </template>
 
 <script>
@@ -132,7 +135,7 @@ export default {
     return {
       state,
       project: computed(() => AppState.activeProject),
-      sprint: computed(() => AppState.sprints),
+      sprints: computed(() => AppState.sprints),
       async create() {
         try {
           await sprintService.create(state.newSprint)

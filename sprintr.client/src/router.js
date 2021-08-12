@@ -41,6 +41,12 @@ const routes = [
     name: 'BackLogItems',
     component: loadPage('BackLogItemsPage'),
     beforeEnter: authGuard
+  },
+  {
+    path: '/sprints/:id',
+    name: 'Sprint',
+    component: loadPage('SprintsPage'),
+    beforeEnter: authGuard
   }
 ]
 

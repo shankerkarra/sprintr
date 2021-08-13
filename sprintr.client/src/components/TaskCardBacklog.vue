@@ -142,7 +142,8 @@ import { backlogService } from '../services/BacklogService'
 import Pop from '../utils/Notifier'
 import { noteService } from '../services/NoteService'
 import { logger } from '../utils/Logger'
-import { sprintService } from '../services/SprintService'
+import { projectService } from '../services/ProjectService'
+import { useRoute } from 'vue-router'
 export default {
   props: {
     task: {
@@ -151,13 +152,14 @@ export default {
     }
   },
   setup(props) {
+    const route = useRoute()
     const state = reactive({
       newNote: { },
       editTask: { }
     })
     onMounted(async() => {
       try {
-        await sprintService.getAll()
+        await projectService.getSprintsByProject(route.params.projectId)
       } catch (error) {
         Pop.toast(error)
       }

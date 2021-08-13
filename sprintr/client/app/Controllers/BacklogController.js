@@ -10,7 +10,7 @@ function _drawAllBackLog() {
   document.getElementById('').innerHTML = template
 }
 
-export class BacklogController{
+export class BacklogController {
   constructor() {
     ProxyState.on('backlogs', _drawAllBackLog)
   }
@@ -19,34 +19,36 @@ export class BacklogController{
     try {
       const backlogs = await backlogService.getAllBacklog()
       return backlogs
-      } catch (error) {
-      logger.logger('Failed getting All Backlog', error)
+    } catch (error) {
+      logger.logger(error)
     }
   }
+
   async getBacklogById(id) {
     try {
       const backlog = await backlogService.getBacklogById(id)
       return backlog
     } catch (error) {
-      logger.logger('Failed getting Backlog by Id', error)
+      logger.logger(error)
     }
   }
+
   async addBacklog() {
     try {
-      event.preventDefault();
+      event.preventDefault()
       const form = event.target
       const rawbacklog = {
         name: form.name.value,
         body: form.body.value,
         isOpen: form.isOpen.value,
         projectId: projectId,
-        creatorId:user.id
+        creatorId: user.id
       }
       const backlog = await backlogService.addBacklog(rawbacklog)
       form.reset
       return backlog
-    } catch (error){
-      logger.logger('Failed creating Backlog', error)
+    } catch (error) {
+      logger.logger(error)
     }
   }
 
@@ -55,7 +57,7 @@ export class BacklogController{
       const backlog = await backlogService.deleteBacklog(id)
       return backlog
     } catch (error) {
-      logger.logger('Failed removing Bakclog', error)
+      logger.logger(error)
     }
   }
 }

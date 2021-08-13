@@ -5,31 +5,31 @@ import { logger } from '../utils/Logger.js'
 class BacklogService {
   async getById(id) {
     const res = await api.get('api/backlog/' + id)
-    logger.log('A single Backlog : ', res.data)
+    // logger.log('A single Backlog : ', res.data)
     AppState.activeBacklog = res.data
   }
 
   async getTasksbyBacklog(id) {
     const res = await api.get('api/backlog/' + id + '/tasks')
-    logger.log('All Tasks for this Backlog : ', res.data)
+    // logger.log('All Tasks for this Backlog : ', res.data)
     AppState.tasks = res.data
   }
 
   async create(body) {
     const res = await api.post('api/backlog', body)
-    logger.log('Added A Backlog : ', res.data)
+    // logger.log('Added A Backlog : ', res.data)
     AppState.backlogitems.push(res.data)
   }
 
   async destroy(id) {
     await api.delete('api/backlog/' + id)
     AppState.backlogitems = AppState.backlogitems.filter(b => b.id !== id)
-    logger.log('Deleted Successfully')
+    // logger.log('Deleted Successfully')
   }
 
   async update(id, body) {
     const res = await api.put('api/backlog/', +id, body)
-    logger.log('Edited A Backlog : ', res.data)
+    // logger.log('Edited A Backlog : ', res.data)
     AppState.backlogitems = res.data
   }
 }

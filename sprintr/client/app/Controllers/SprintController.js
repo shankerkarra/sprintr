@@ -1,6 +1,6 @@
 import { ProxyState } from '../AppState.js'
 import { sprintService } from '../Services/SprintService.js'
-import {logger} from '../Utils/Logger.js'
+import { logger } from '../Utils/Logger.js'
 
 function _drawAllSprint() {
   let template = ''
@@ -17,7 +17,7 @@ export class SprintController {
       const sprints = await sprintService.getAllSprint()
       return sprints
     } catch (error) {
-      logger.logger('Failed getting All Sprints', error)
+      logger.log(error)
     }
   }
 
@@ -26,13 +26,13 @@ export class SprintController {
       const sprint = await sprintService.getsprintById(id)
       return sprint
     } catch (error) {
-      logger.logger('Failed getting Sprint by Id', error)
+      logger.log(error)
     }
   }
 
   async createSprint(rawsprint) {
     try {
-      event.preventDefault();
+      event.preventDefault()
       const form = event.target
       const rawsprint = {
         name: form.name.value,
@@ -46,7 +46,7 @@ export class SprintController {
       form.reset
       return sprint
     } catch (error) {
-      logger.log('Failed Creating Sprint', error)
+      logger.log(error)
     }
   }
 
@@ -55,7 +55,7 @@ export class SprintController {
       const sprint = await sprintService.deleteSprint(id)
       return sprint
     } catch (error) {
-      logger.logger('Failed deleting  Sprint', error)
+      logger.log(error)
     }
   }
 }

@@ -153,7 +153,7 @@ export default {
     })
     function caculateTotal() {
       let totalWeight = 0
-      logger.log([0])
+      //    logger.log([0])
       for (let i = 0; i < AppState.tasks.length; i++) {
         totalWeight += AppState.tasks[i].weight
       }

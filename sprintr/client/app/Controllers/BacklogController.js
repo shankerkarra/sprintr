@@ -20,7 +20,7 @@ export class BacklogController {
       const backlogs = await backlogService.getAllBacklog()
       return backlogs
     } catch (error) {
-      logger.logger(error)
+      logger.log(error)
     }
   }
 
@@ -29,7 +29,7 @@ export class BacklogController {
       const backlog = await backlogService.getBacklogById(id)
       return backlog
     } catch (error) {
-      logger.logger(error)
+      logger.log(error)
     }
   }
 
@@ -48,7 +48,7 @@ export class BacklogController {
       form.reset
       return backlog
     } catch (error) {
-      logger.logger(error)
+      logger.log(error)
     }
   }
 
@@ -57,7 +57,7 @@ export class BacklogController {
       const backlog = await backlogService.deleteBacklog(id)
       return backlog
     } catch (error) {
-      logger.logger(error)
+      logger.log(error)
     }
   }
 }

@@ -88,7 +88,13 @@
                 </div>
                 <div class="form-group">
                   <label for="task-weight" class="col-form-label">Weight:</label>
-                  <input type="number" class="form-control" v-model="state.newTask.weight" id="task-weight" required>
+                  <input type="number"
+                         class="form-control"
+                         v-model="state.newTask.weight"
+                         min="1"
+                         id="task-weight"
+                         required
+                  >
                 </div>
                 <div class="form-group">
                   <label for="task-selection">Task Status</label>

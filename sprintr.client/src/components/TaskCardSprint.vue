@@ -177,7 +177,7 @@ export default {
 
       async update() {
         try {
-          logger.log(state.editTask)
+          // logger.log(state.editTask)
           await taskService.update(props.task.id, state.editTask)
           await sprintService.getTaskBySprint(props.task.sprintId)
           state.editTask = { }

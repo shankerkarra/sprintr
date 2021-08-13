@@ -29,8 +29,8 @@ export default {
       account: computed(() => AppState.account),
       project: computed(() => AppState.activeProject),
       async destory(id, projectid) {
-        logger.log(AppState.activeProject)
-        logger.log(id)
+        // logger.log(AppState.activeProject)
+        // logger.log(id)
         await backlogService.destroy(id)
         await projectService.getBacklogByProject(projectid)
       }

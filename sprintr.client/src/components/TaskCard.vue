@@ -61,13 +61,14 @@
                 <label for="task-sprint">Current Task's Sprint :</label>
                 <select class="form-control" id="task-sprint">
                   <div class="row justify-content-center mt-3">
-                    <select v-model="state.editTask.sprintId">
+                    <!-- <select v-model="state.editTask.sprintId">
                       <DropdownCard v-for="s in sprints" :key="s.id" :sprint="s" />
                     </select>
+                  </div> -->
+                    <option value="" v-if="!task.sprintId">
+                      None Assigned
+                    </option>
                   </div>
-                  <!-- <option value="" v-if="!task.sprintId">
-                    None Assigned
-                  </option> -->
                 </select>
               </div>
             </form>

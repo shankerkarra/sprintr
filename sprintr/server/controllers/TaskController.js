@@ -55,8 +55,9 @@ export class TaskController extends BaseController {
 
   async edit(req, res, next) {
     try {
+      const user = req.userInfo // Remember To Validate the creator before asking to edit
       req.body.id = req.params.id
-      const project = await taskService.updateTask(req.body)
+      const project = await taskService.updateTask(req.body, req.params.id, user)
       res.send(project)
     } catch (error) {
       next(error)

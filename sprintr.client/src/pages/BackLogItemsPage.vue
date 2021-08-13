@@ -1,7 +1,10 @@
 <template>
   <div class="row bg-dark justify-content-between">
     <div class="col-md-3 col-8 text-light ">
-      <h5 class="hoverable pt-1" data-toggle="modal" data-target="#backlogInfo">
+      <h5 class="hoverable pt-1"
+          data-toggle="modal"
+          data-target="#backlogInfo"
+      >
         {{ backlogitem.name }}
       </h5>
 
@@ -17,6 +20,8 @@
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
                 {{ backlogitem.name }}
+                <hr>
+                {{ total }}
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -140,10 +145,21 @@ export default {
         Pop.toast('Error fetching Backlogs', error)
       }
     })
+    function caculateTotal() {
+      let totalWeight = 0
+      logger.log([0])
+      for (let i = 0; i < AppState.tasks.length; i++) {
+        totalWeight += AppState.tasks[i].weight
+      }
+      return totalWeight
+    }
     return {
       state,
       backlogitem: computed(() => AppState.activeBacklog),
       tasks: computed(() => AppState.tasks),
+      total: computed(caculateTotal),
+      // One Liner Way to call the function
+      // total: computed(() => AppState.tasks.reduce((total, task) => total + task.weight), 0),
       async destroy(id) {
         await backlogService.destroy(id)
         router.push({ name: 'ProjectBacklog' })

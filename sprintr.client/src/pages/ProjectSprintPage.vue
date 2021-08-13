@@ -138,8 +138,8 @@ export default {
       sprints: computed(() => AppState.sprints),
       async create() {
         try {
+          state.newSprint.projectId = AppState.activeProject.id
           await sprintService.create(state.newSprint)
-          state.newBacklog.projectId = AppState.activeProject.id
           await projectService.getSprintsByProject(route.params.projectId)
           state.newSprint = {}
         } catch (error) {

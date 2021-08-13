@@ -25,7 +25,7 @@ class TaskService {
   async update(id, body) {
     const res = await api.put('api/tasks/' + id, body)
     logger.log('Updated Task', res.data)
-    AppState.tasks = res.data
+    AppState.activeTask = res.data
   }
 
   async destroy(id) {

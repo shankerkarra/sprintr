@@ -57,9 +57,14 @@
               <div class="form-group">
                 <label for="task-sprint">Current Task's Sprint :</label>
                 <select class="form-control" id="task-sprint">
-                  <option value="" v-if="!task.sprintId">
+                  <div class="row justify-content-center mt-3">
+                    <select v-model="state.editTask.sprintId">
+                      <DropdownCard v-for="s in sprints" :key="s.id" :sprint="s" />
+                    </select>
+                  </div>
+                  <!-- <option value="" v-if="!task.sprintId">
                     None Assigned
-                  </option>
+                  </option> -->
                 </select>
               </div>
             </form>
@@ -165,6 +170,8 @@ export default {
       account: computed(() => AppState.account),
       backlog: computed(() => AppState.activeBacklog),
       notes: computed(() => AppState.notes),
+      project: computed(() => AppState.activeProject),
+      sprints: computed(() => AppState.sprints),
       async current() {
         await taskService.getTaskById(props.task.id)
         await taskService.getNotesByTasks(AppState.activeTask.id)

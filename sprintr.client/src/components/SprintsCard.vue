@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-7 col-7 bg-light d-flex mt-3 justify-content-between">
     <p class="pt-3 text-light hoverable">
-      <router-link :to="{ name: 'Sprint', params: {id: sprint.id}}">
+      <router-link :to="{ name: 'Sprint', params: {sprintId: sprint.id, projectId: project.id}}">
         {{ sprint.name }}
       </router-link> -->
     </p>

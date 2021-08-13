@@ -147,7 +147,7 @@ export default {
       },
       async create() {
         try {
-          logger.log('The forms info -', state.newBacklog)
+          //       logger.log('The forms info -', state.newBacklog)
           state.newBacklog.projectId = AppState.activeProject.id
           await backlogService.create(state.newBacklog)
           await projectService.getBacklogByProject(route.params.projectId)

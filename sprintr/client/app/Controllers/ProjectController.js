@@ -1,11 +1,11 @@
 import { ProxyState } from '../AppState.js'
-import { projectService} from '../Services/ProjectService.js'
-import {logger} from '../Utils/logger.js'
+import { projectService } from '../Services/ProjectService.js'
+import { logger } from '../Utils/logger.js'
 
 function _drawAllProjects() {
   let template = ''
   ProxyState.projects.forEach(p => { template += p.template })
- document.getElementById('').innerHTML = template
+  document.getElementById('').innerHTML = template
 }
 
 export class ProjectController {
@@ -18,7 +18,7 @@ export class ProjectController {
       const projects = await projectService.getAllProject()
       return projects
     } catch (error) {
-      logger.log('Failed getting all Projects',error)
+      logger.log(error)
     }
   }
 
@@ -27,13 +27,13 @@ export class ProjectController {
       const project = await projectService.getProjectById(id)
       return project
     } catch (error) {
-      logger.log('Failed getting Project by Id', error)
+      logger.log(error)
     }
   }
 
   async addProject() {
     try {
-      event.preventDefault();
+      event.preventDefault()
       const form = event.target
       const rawproject = {
         name: form.name.value,
@@ -43,17 +43,16 @@ export class ProjectController {
       form.reset
       return project
     } catch (error) {
-      logger.log('Failed adding Project', error)
+      logger.log(error)
     }
   }
 
- async removeProject(id) {
+  async removeProject(id) {
     try {
       const project = await projectService.removeProject(id)
       return project
     } catch (error) {
-      logger.log('Failed removing Project', error)
+      logger.log(error)
     }
   }
-
- }
+}

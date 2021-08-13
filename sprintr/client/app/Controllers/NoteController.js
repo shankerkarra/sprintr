@@ -18,7 +18,7 @@ export class NoteController {
       const notes = await noteService.getAllNote()
       return notes
     } catch (error) {
-      logger.log('Failed getting all Notes', error)
+      logger.log(error)
     }
   }
 
@@ -27,7 +27,7 @@ export class NoteController {
       const note = await noteService.getNoteById(id)
       return note
     } catch (error) {
-      logger.log('Failed getting Note by Id', error)
+      logger.log(error)
     }
   }
 
@@ -36,7 +36,7 @@ export class NoteController {
       const note = await noteService.addNote(rawnote)
       return note
     } catch (error) {
-      logger.log('Failed adding Note', error)
+      logger.log(error)
     }
   }
 
@@ -45,7 +45,7 @@ export class NoteController {
       const note = await noteService.deleteNote(id)
       return note
     } catch (error) {
-      logger.log('Failed deleting Note', error)
+      logger.log(error)
     }
   }
 }

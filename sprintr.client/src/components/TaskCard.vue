@@ -50,27 +50,15 @@
                   </option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary ml-3">
-                Save
-              </button>
-            </form>
-          </div>
-          <div class="pt-2">
-            <form action="">
               <div class="form-group">
-                <label for="task-sprint">Current Task's Sprint :</label>
-                <select class="form-control" id="task-sprint">
-                  <div class="row justify-content-center mt-3">
-                    <!-- <select v-model="state.editTask.sprintId">
-                      <DropdownCard v-for="s in sprints" :key="s.id" :sprint="s" />
-                    </select>
-                  </div> -->
-                    <option value="" v-if="!task.sprintId">
-                      None Assigned
-                    </option>
-                  </div>
+                <label for="task-sprint">Change Task Sprint</label>
+                <select class="form-control" id="task-sprint" v-model="state.editTask.sprintId">
+                  <DropdownCard v-for="s in sprints" :key="s.id" :sprint="s" />
                 </select>
               </div>
+              <button type="submit" class="btn btn-primary">
+                Save
+              </button>
             </form>
           </div>
         </div>
@@ -147,13 +135,14 @@
 </template>
 
 <script>
-import { computed, reactive } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { taskService } from '../services/TaskService'
 import { backlogService } from '../services/BacklogService'
 import Pop from '../utils/Notifier'
 import { noteService } from '../services/NoteService'
 import { logger } from '../utils/Logger'
+import { sprintService } from '../services/SprintService'
 export default {
   props: {
     task: {
@@ -165,7 +154,13 @@ export default {
     const state = reactive({
       newNote: { },
       editTask: { }
-
+    })
+    onMounted(async() => {
+      try {
+        await sprintService.getAll()
+      } catch (error) {
+        Pop.toast(error)
+      }
     })
     return {
       state,

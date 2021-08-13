@@ -3,6 +3,11 @@ import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
 class SprintService {
+  async getAll() {
+    const res = await api.get('api/sprint')
+    AppState.sprints = res.data
+  }
+
   async getById(id) {
     const res = await api.get('api/sprint/' + id)
     logger.log('Fetched single data', res.data)

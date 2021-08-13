@@ -1,19 +1,16 @@
 <template>
-  <option v-for="s in sprints" :value="s.id" :key="s.id">
-    {{ s.name }}
+  <option :value="sprint.id">
+    {{ sprint.name }}
   </option>
 </template>
 
 <script>
 export default {
+  name: 'DropDown',
   props: {
     sprint: {
       type: Object,
       required: true
-    }
-  },
-  setup() {
-    return {
     }
   }
 }

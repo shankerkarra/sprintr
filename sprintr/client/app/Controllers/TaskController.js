@@ -18,7 +18,7 @@ export class TaskController {
       const tasks = await taskService.getAllTask()
       return tasks
     } catch (error) {
-      logger.logger(error)
+      logger.log(error)
     }
   }
 
@@ -27,7 +27,7 @@ export class TaskController {
       const task = await taskService.getTaskById(id)
       return task
     } catch (error) {
-      logger.logger(error)
+      logger.log(error)
     }
   }
 

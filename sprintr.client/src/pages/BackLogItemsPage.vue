@@ -20,8 +20,8 @@
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
                 {{ backlogitem.name }}
-                <hr>
-                {{ total }}
+                <br>
+                ⚖ {{ total }}
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -117,7 +117,7 @@
     </div>
   </div>
   <div class="row justify-content-center mt-3">
-    <TaskCard v-for="t in tasks" :key="t.id" :task="t" />
+    <TaskCardBacklog v-for="t in tasks" :key="t.id" :task="t" />
   </div>
 </template>
 

@@ -11,7 +11,7 @@ class SprintService {
   async getById(id) {
     const res = await api.get('api/sprint/' + id)
     logger.log('Fetched single data', res.data)
-    AppState.sprints = res.data
+    AppState.activeSprint = res.data
   }
 
   async getTaskBySprint(id) {
@@ -29,7 +29,7 @@ class SprintService {
   async update(id, body) {
     const res = await api.put('api/sprint/' + id, body)
     logger.log('Updated Sprint', res.data)
-    AppState.sprints = res.data
+    AppState.activeSprint = res.data
   }
 
   async destroy(id) {
